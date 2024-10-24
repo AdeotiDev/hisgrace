@@ -59,7 +59,7 @@
 <body>
 
     <div class="container">
-        <h1>We're Coming Soon</h1>
+        <h1>We're Coming Soon...</h1>
         <p>Our website is under construction. Stay tuned for something amazing!</p>
         <div id="countdown"></div>
         <div class="social-icons">
