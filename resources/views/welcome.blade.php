@@ -91,7 +91,7 @@
             // If the countdown is over, write some text
             if (distance < 0) {
                 clearInterval(countdownfunction);
-                document.getElementById("countdown").innerHTML = "We are live !!!";
+                document.getElementById("countdown").innerHTML = "We are live. Thanks !!!";
             }
         }, 1000);
     </script>
