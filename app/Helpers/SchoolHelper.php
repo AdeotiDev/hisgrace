@@ -8,13 +8,13 @@ use App\Models\Teacher;
 if (!function_exists('getSchoolDetails')) {
     function getSchoolDetails()
     {
-        // $school = Setting::firstOrFail();
+        $school = Setting::firstOrFail();
 
         return [
-            'school_name' => "",//$school->school_name,
-            'school_address' => "",// $school->address,
-            'school_phone' => "", //$school->contact,
-            'school_logo' => ""//$school->logo,
+            'school_name' => $school->school_name,
+            'school_address' => $school->address,
+            'school_phone' => $school->contact,
+            'school_logo' => $school->logo,
         ];
     }
 
@@ -25,9 +25,9 @@ if (!function_exists('getSchoolDetails')) {
 
         function getSchoolStats(){
 
-            $totalStudents = 3;//Student::count();
-            $totalTeachers = 3;//Teacher::count();
-            $totalClasses =  3;//SchoolClass::count();
+            $totalStudents = Student::count();
+            $totalTeachers = Teacher::count();
+            $totalClasses =  SchoolClass::count();
 
 
             return [
