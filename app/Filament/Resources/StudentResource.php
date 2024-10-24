@@ -2,82 +2,172 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\StudentResource\Pages;
-use App\Filament\Resources\StudentResource\RelationManagers;
-use App\Models\Student;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Student;
+use App\Models\Branch; // Ensure Branch is imported
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\StudentResource\Pages;
+use App\Models\User;
+use Faker\Provider\ar_EG\Text;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Section;
+use Illuminate\Database\Eloquent\Model;
 
 class StudentResource extends Resource
 {
     protected static ?string $model = Student::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationGroup = 'HRM';
+
+    public static function getEloquentQuery(): Builder
+    {
+        // Eager load the user relationship
+        
+        return parent::getEloquentQuery()->with('user');
+    }
 
     public static function form(Form $form): Form
     {
+
+        
         return $form
+        ->schema([
+            Forms\Components\Section::make('User Details')
             ->schema([
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('school_class_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('parent_contact')
+                TextInput::make('user.name') 
+                    ->label('Full Name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DatePicker::make('admission_date')
-                    ->required(),
+
+                TextInput::make('user.email') 
+                    ->label('Email Address')
+                    ->required()
+                    ->email()
+                    ->visibleOn('create')
+                    ->maxLength(255)
+                    ->unique(User::class, 'email'),
+
+                TextInput::make('password')
+                    ->label('Password')
+                    ->revealable()
+                    ->password()
+                    ->nullable() // Make it optional
+                    ->minLength(8),
+
+                TextInput::make('user.address') // Correctly reference the user relationship
+                    ->label('Address')
+                    ->nullable(),
+
+                FileUpload::make('user.passport') // Correctly reference the user relationship
+                    ->label('Passport Photo')
+                    ->nullable()
+                    ->disk('public')
+                    ->columnSpanFull()
+                    ->directory('passports'),
+            ])->columns(2),
+
+
+                Forms\Components\Section::make('Student Information')
+                    ->schema([
+                        Select::make('branch_id')
+                            ->label('Branch')
+                            ->options(Branch::all()->pluck('name', 'id'))
+                            ->required(),
+
+                        Select::make('school_class_id')
+                            ->relationship('class', 'name')
+                            ->required()
+                            ->label('Class'),
+
+                        TextInput::make('roll_number')
+                            ->label('Registration Number')
+                            ->unique(Student::class, 'roll_number')
+                            ->required(),
+                        DatePicker::make('admission_date')
+                            ->label('Admission Date')
+                            ->required(),
+                    ])->columns(2),
+
+                    Section::make('Parent Details')
+                        ->schema([
+                            TextInput::make('parent_contact')
+                                ->label('Parent Contact')
+                                ->required()
+                                ->maxLength(255),
+                            TextInput::make('guardian_name')
+                                ->label('Guardian Name')
+                                ->required(),
+                            TextInput::make('guardian_phone')
+                                ->label('Guardian Phone')
+                                ->required(),
+                        ])->columns(3),
             ]);
     }
 
+ 
     public static function table(Table $table): Table
     {
+        
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Full Name')
+                    
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('school_class_id')
-                    ->numeric()
+                
+                Tables\Columns\TextColumn::make('user.email')
+                    ->label('Email')
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('parent_contact')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('admission_date')
-                    ->date()
+                
+                Tables\Columns\ImageColumn::make('user.passport')
+                    ->label('Passport Photo')
+                   
+                    ->circular(),
+                
+                Tables\Columns\TextColumn::make('class.name')
+                    ->label('Class')
                     ->sortable(),
+                
+                Tables\Columns\TextColumn::make('roll_number')
+                    ->label('Registration Number')
+                    ->searchable()
+                    ->sortable(),
+                
+                Tables\Columns\TextColumn::make('user.branch.name')
+                    ->label('Branch')
+                    ->sortable(),
+                
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Created Date')
+                    ->dateTime('d M Y')
+                    ->sortable(),
             ])
             ->filters([
-                //
+                // You can add filters here if needed
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
+            // Define any related models here
+           
         ];
     }
 

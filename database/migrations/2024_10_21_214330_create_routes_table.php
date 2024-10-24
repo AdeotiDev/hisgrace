@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Branch;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -16,6 +17,7 @@ return new class extends Migration
         $table->string('name');
         $table->string('start_location');
         $table->string('end_location');
+        $table->foreignIdFor(Branch::class)->onDelete('cascade');
         $table->decimal('fare', 8, 2);
         $table->timestamps();
     });

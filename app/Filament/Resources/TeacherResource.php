@@ -2,36 +2,89 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TeacherResource\Pages;
-use App\Filament\Resources\TeacherResource\RelationManagers;
-use App\Models\Teacher;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\User;
 use Filament\Tables;
+use App\Models\Branch;
+use App\Models\Teacher;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\TeacherResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\TeacherResource\RelationManagers;
+use App\Models\Subject;
 
 class TeacherResource extends Resource
 {
-    protected static ?string $model = Teacher::class;
+    protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
+    protected static ?string $navigationGroup = 'HRM';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('qualification')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('subject_id')
-                    ->required()
-                    ->numeric(),
+
+                Forms\Components\Section::make('User Details')
+                    ->schema([
+                        TextInput::make('name')
+                            ->label('Full Name')
+                            ->required()
+                            ->maxLength(255),
+
+                        TextInput::make('email')
+                            ->label('Email Address')
+                            ->required()
+                            ->email()
+                            ->visibleOn('create')
+                            ->maxLength(255)
+                            ->unique(User::class, 'email'),
+                        Select::make('branch_id')
+                            ->label('Branch')
+                            ->options(Branch::all()->pluck('name', 'id'))
+                            ->required(),
+                        TextInput::make('password')
+                            ->label('Password')
+                            ->dehydrateStateUsing(fn($state) => bcrypt($state))
+                            ->revealable()
+                            ->password()
+                            ->nullable() // Make it optional
+                            ->minLength(8),
+
+                        TextInput::make('address') 
+                            ->label('Address')
+                            ->nullable(),
+
+                        FileUpload::make('passport') 
+                            ->label('Passport Photo')
+                            ->nullable()
+                            ->disk('public')
+                            ->columnSpanFull()
+                            ->directory('passports'),
+                    ])->columns(2),
+
+
+                Section::make('Teacher Details')
+                    ->relationship('teacher')
+                    ->schema([
+                        Forms\Components\TextInput::make('qualification')
+                            ->required()
+                            ->maxLength(255),
+                        Select::make('subject_id')
+                            ->label('Subject')
+                            ->searchable()
+                            ->options(Subject::all()->pluck('name', 'id'))
+                            ->required(),
+                    ])->columns(2)
+
             ]);
     }
 

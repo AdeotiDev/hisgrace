@@ -1,13 +1,14 @@
 <?php
 
 use App\Models\Exam;
-use App\Models\SchoolClass;
+use App\Models\User;
+use App\Models\Branch;
 use App\Models\Student;
 use App\Models\Subject;
-use App\Models\User;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\SchoolClass;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -23,6 +24,7 @@ return new class extends Migration
         $table->foreignIdFor(User::class)->onDelete('cascade')->comment('recorded by');
         $table->foreignIdFor(Subject::class)->onDelete('cascade');
         $table->foreignIdFor(SchoolClass::class, )->onDelete('cascade');
+        $table->foreignIdFor(Branch::class)->onDelete('cascade');
         $table->integer('mark1')->default(0);
         $table->integer('mark2')->default(0);
         $table->integer('mark3')->default(0);

@@ -2,22 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BookResource\Pages;
-use App\Filament\Resources\BookResource\RelationManagers;
-use App\Models\Book;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Book;
 use Filament\Tables;
+use App\Models\Branch;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\BookResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\BookResource\RelationManagers;
 
 class BookResource extends Resource
 {
     protected static ?string $model = Book::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
+    protected static ?string $navigationGroup = 'Assets';
 
     public static function form(Form $form): Form
     {
@@ -35,6 +38,9 @@ class BookResource extends Resource
                 Forms\Components\TextInput::make('copies')
                     ->required()
                     ->numeric(),
+                Select::make('branch_id')
+                    ->options(Branch::all()->pluck('name', 'id'))
+                    ->required(),
             ]);
     }
 

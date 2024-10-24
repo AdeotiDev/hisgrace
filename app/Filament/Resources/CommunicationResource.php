@@ -17,7 +17,8 @@ class CommunicationResource extends Resource
 {
     protected static ?string $model = Communication::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-oval-left-ellipsis';
+    protected static ?string $navigationGroup = 'Chats';
 
     public static function form(Form $form): Form
     {

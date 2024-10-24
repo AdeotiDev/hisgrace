@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Branch;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->date('event_date');
             $table->time('start_time');
+            $table->foreignIdFor(Branch::class)->onDelete('cascade');
             $table->time('end_time');
             $table->timestamps();
         });

@@ -1,9 +1,10 @@
 <?php
 
 use App\Models\Role;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Branch;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -21,8 +22,10 @@ return new class extends Migration
             $table->json('passport')->nullable();
             $table->foreignIdFor(Role::class)->onDelete('cascade')->nullable();
             $table->string('password');
+            $table->foreignIdFor(Branch::class)->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
+            
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

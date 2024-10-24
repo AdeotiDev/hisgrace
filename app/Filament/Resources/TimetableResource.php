@@ -16,8 +16,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class TimetableResource extends Resource
 {
     protected static ?string $model = Timetable::class;
+    protected static ?string $navigationGroup = 'Logs and Reports';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-clock';
 
     public static function form(Form $form): Form
     {

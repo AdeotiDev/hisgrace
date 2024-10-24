@@ -18,6 +18,9 @@ return new class extends Migration
         $table->foreignIdFor(User::class)->onDelete('cascade');
         $table->foreignIdFor(SchoolClass::class)->onDelete('cascade');
         $table->string('parent_contact');
+        $table->string('roll_number');
+        $table->string('guardian_name');
+        $table->string('guardian_phone');
         $table->date('admission_date');
         $table->timestamps();
     });
