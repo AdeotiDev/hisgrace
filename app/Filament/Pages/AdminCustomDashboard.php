@@ -3,6 +3,9 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\EduSoftStats;
+use App\Filament\Widgets\NoticeboardWidget;
+use App\Filament\Widgets\StudentCharts;
+use App\Models\Noticeboard;
 use Filament\Pages\Page;
 
 class AdminCustomDashboard extends Page
@@ -20,6 +23,8 @@ class AdminCustomDashboard extends Page
     {
         return [
             EduSoftStats::class,
+            StudentCharts::class,
+            NoticeboardWidget::class,
         ];
     }
 

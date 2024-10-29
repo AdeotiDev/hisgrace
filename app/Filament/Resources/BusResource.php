@@ -18,8 +18,12 @@ class BusResource extends Resource
     protected static ?string $model = Bus::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Assets';
+    protected static ?string $navigationGroup = 'Transports';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return "working on...";
+    }
     public static function form(Form $form): Form
     {
         return $form

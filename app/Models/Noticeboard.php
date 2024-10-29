@@ -8,6 +8,18 @@ class Noticeboard extends Model
 {
     //
 
+
+    public function author(){
+        return $this->belongsTo(User::class);
+    }
+
+    
+    public function branch(){
+        return $this->belongsTo(Branch::class);
+    }
+
+
+
     protected $fillable = [
         'title',
         'description',

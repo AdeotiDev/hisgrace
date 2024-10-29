@@ -19,6 +19,7 @@ use Faker\Core\File;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
 
 class NoticeboardResource extends Resource
 {
@@ -74,16 +75,18 @@ class NoticeboardResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('author_id')
+                Tables\Columns\TextColumn::make('author.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('visibility'),
+                Tables\Columns\TextColumn::make('visibility')
+                ,
                 Tables\Columns\TextColumn::make('expiry_date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('branch_id')
+                Tables\Columns\TextColumn::make('branch.name')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('description')->html(),
                 Tables\Columns\TextColumn::make('attachment')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

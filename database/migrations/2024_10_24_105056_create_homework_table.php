@@ -21,12 +21,11 @@ return new class extends Migration
             $table->date('due_date'); // Due date for the homework
 
             // Relations
-            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade'); // Teacher assigning the homework
-            $table->foreignId('class_id')->constrained('classes')->onDelete('cascade'); // Class the homework is assigned to
+            $table->foreignId('teacher_id')->constrained('users')->onDelete('cascade'); // Teacher assigning the homework
+            $table->json('class_ids');
+            $table->json('branch_ids');
             $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade'); // Subject related to the homework
-            $table->foreignIdFor(Branch::class)->onDelete('cascade');
-
-            // File uploads (optional)
+            
             $table->string('attachment')->nullable(); // File attachment for homework instructions or materials
 
             // Timestamps

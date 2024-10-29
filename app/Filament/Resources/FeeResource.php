@@ -20,6 +20,10 @@ class FeeResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
     protected static ?string $navigationGroup = 'Fee';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return "working on...";
+    }
     public static function form(Form $form): Form
     {
         return $form

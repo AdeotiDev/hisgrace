@@ -71,7 +71,9 @@ class SettingResource extends Resource
                         'light' => 'Light',
                         ]
                     )
-                    ->default('default'),
+                    ->default('default')
+                    ->label('App Theme')
+                    ,
             ]);
     }
 
@@ -79,23 +81,18 @@ class SettingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('school_name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('logo')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('favicon')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('school_name'),
+                Tables\Columns\TextColumn::make('logo'),
+                Tables\Columns\TextColumn::make('favicon'),
                 Tables\Columns\TextColumn::make('meta_title')
-                    ->searchable(),
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('frontend_theme')
-                    ->searchable(),
+                    ->label('App Theme'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
+                    ->dateTime()    
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([

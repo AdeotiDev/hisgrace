@@ -3,19 +3,43 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Panel;
 use App\Models\Branch;
 use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\Attendance;
+use App\Models\Noticeboard;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable  implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
+ 
     use HasFactory, Notifiable;
 
 
-    // App\Models\User.php
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if ($panel->getId() === 'admin') {
+                
+            if(auth()->user()->is_admin === true){
+                return true;
+            }else{
+                return false;
+            }
+        }
+ 
+        return true;
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
 
     public function student()
     {
@@ -24,6 +48,14 @@ class User extends Authenticatable
     public function teacher()
     {
         return $this->hasOne(Teacher::class);
+    }
+    public function class()
+    {
+        return $this->belongsTo(SchoolClass::class, 'student_class');
+    }
+
+    public function noticeboard(){
+        return $this->hasMany(Noticeboard::class);
     }
 
     public function branch()
@@ -46,6 +78,8 @@ class User extends Authenticatable
         'role_id',            // Foreign key for role
         'password',           // Password for the user
         'branch_id',          // Foreign key for branch
+        'student_class',      // Class of the user
+        'is_admin',           // Flag indicating if the user is an admin
     ];
     
 
@@ -71,6 +105,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'passport' => 'array',
+            'is_admin' => 'boolean',
         ];
     }
 }

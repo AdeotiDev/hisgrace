@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\SchoolClassResource\Pages;
 use App\Filament\Resources\SchoolClassResource\RelationManagers;
+use App\Models\User;
+use Filament\Tables\Columns\ViewColumn;
 
 class SchoolClassResource extends Resource
 {
@@ -29,12 +31,14 @@ class SchoolClassResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required()
+                    ->required()    
                     ->maxLength(255),
                 Select::make('class_teacher_id')
-                    ->options(Teacher::all()->pluck('name', 'id'))
+                    ->label('Class Teacher')
+                    ->options(User::whereHas('teacher')->pluck('name', 'id'))
                     ->required(),
-                Select::make('branch_id')
+                Select::make('branch_ids')
+                    ->multiple()
                     ->options(Branch::all()->pluck('name', 'id'))
                     ->required(),
                 Forms\Components\TextInput::make('capacity')
@@ -49,11 +53,13 @@ class SchoolClassResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('class_teacher_id')
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Class Teacher')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('branch_id')
-                    ->numeric()
+                ViewColumn::make('branch_ids')
+                    ->view('tables.columns.branches')
+                    ->label('Branch')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('capacity')
                     ->numeric()

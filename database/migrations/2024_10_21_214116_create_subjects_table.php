@@ -15,10 +15,9 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
-            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
-            $table->foreignIdFor(Branch::class)->onDelete('cascade');
-            $table->integer('credits');
+            $table->json('branch_ids');
+            $table->boolean('is_active')->default(true);
+            $table->integer('credits')->default(0);
             $table->timestamps();
         });
     }

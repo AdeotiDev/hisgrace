@@ -20,6 +20,10 @@ class TimetableResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clock';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return "working on...";
+    }
     public static function form(Form $form): Form
     {
         return $form

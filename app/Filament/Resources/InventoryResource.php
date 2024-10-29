@@ -18,7 +18,12 @@ class InventoryResource extends Resource
     protected static ?string $model = Inventory::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calculator';
+    protected static ?string $navigationGroup = "Accounting";
 
+    public static function getNavigationBadge(): ?string
+    {
+        return "working on...";
+    }
     public static function form(Form $form): Form
     {
         return $form

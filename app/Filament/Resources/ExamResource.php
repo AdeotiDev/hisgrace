@@ -18,8 +18,11 @@ class ExamResource extends Resource
     protected static ?string $model = Exam::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
-    protected static ?string $navigationGroup = 'Assets';
-
+    protected static ?string $navigationGroup = 'Examinations';
+    public static function getNavigationBadge(): ?string
+    {
+        return "working on...";
+    }
     public static function form(Form $form): Form
     {
         return $form

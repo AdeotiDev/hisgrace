@@ -19,7 +19,13 @@ class CommunicationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-oval-left-ellipsis';
     protected static ?string $navigationGroup = 'Chats';
+    protected static ?string $modelLabel = 'Notification';
+    
 
+    public static function getNavigationBadge(): ?string
+    {
+        return "working on...";
+    }
     public static function form(Form $form): Form
     {
         return $form

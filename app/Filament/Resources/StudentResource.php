@@ -26,7 +26,9 @@ class StudentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
     protected static ?string $navigationGroup = 'HRM';
+    protected static bool $isDiscoverable = false;
 
+    
     public static function getEloquentQuery(): Builder
     {
         // Eager load the user relationship

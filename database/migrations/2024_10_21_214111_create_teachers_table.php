@@ -17,7 +17,8 @@ return new class extends Migration
         $table->id();
         $table->foreignIdFor(User::class)->onDelete('cascade');
         $table->string('qualification');
-        $table->foreignIdFor(Subject::class)->onDelete('cascade');
+        $table->json('class_ids');
+        $table->json('subject_ids');
         $table->timestamps();
     });
 }

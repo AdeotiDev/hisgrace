@@ -16,23 +16,26 @@ class Homework extends Model
         'title',
         'description',
         'subject_id',
-        'class_id',
+        'class_ids',
         'teacher_id',
         'due_date',
         'attachment',
-        'branch_id'
+        'branch_ids'
     ];
+
 
     protected $table = 'homeworks';
 
-    // The attributes that should be cast to native types
     protected $casts = [
-        'due_date' => 'date', // Cast the due_date as a Carbon instance (date)
+        'due_date' => 'date', 
+        'class_ids' => 'array',
+        'branch_ids' => 'array'
     ];
     public function teacher()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsTo(User::class);
     }
+   
 
     public function class()
     {

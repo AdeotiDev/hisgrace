@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -19,7 +20,13 @@ class AttendanceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-bookmark-square';
     protected static ?string $navigationGroup = 'Logs and Reports';
+    protected static ?string $navigationLabel = 'Attendance Logs';
 
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
     public static function form(Form $form): Form
     {
         return $form
@@ -30,7 +37,10 @@ class AttendanceResource extends Resource
                 Forms\Components\TextInput::make('class_id')
                     ->required()
                     ->numeric(),
-                Forms\Components\DatePicker::make('date')
+                Forms\Components\TextInput::make('branch_id')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\DatePicker::make('attendance_date')    
                     ->required(),
                 Forms\Components\Toggle::make('status')
                     ->required(),
@@ -41,13 +51,24 @@ class AttendanceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('student_id')
+                Tables\Columns\TextColumn::make('student.name')
+                    ->label('Student Name')
+                    ->searchable()
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('class_id')
+                ImageColumn::make('student.passport')
+                ->circular()
+                ->label('Passport'),
+                 Tables\Columns\TextColumn::make('branch.name')
                     ->numeric()
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('date')
+                Tables\Columns\TextColumn::make('class.name')
+                    ->numeric()
+                    ->searchable()
+                    ->sortable(),
+               
+                Tables\Columns\TextColumn::make('attendance_date')
                     ->date()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('status')
@@ -65,13 +86,14 @@ class AttendanceResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+              //  Tables\Actions\EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            // ->bulkActions([
+            //     Tables\Actions\BulkActionGroup::make([
+            //         Tables\Actions\DeleteBulkAction::make(),
+            //     ]),
+            // ])
+            ;
     }
 
     public static function getRelations(): array
