@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
-            $table->foreignId('branch_id')->constrained('branches')->onDelete('cascade');
+            $table->foreignId('student_id');
+            $table->foreignId('class_id');
+            $table->foreignId('branch_id');
             $table->date('attendance_date');
             $table->integer('marked_by')->nullable();
             $table->string('status');
