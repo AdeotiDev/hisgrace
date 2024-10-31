@@ -71,7 +71,7 @@
 
     <script>
         // Set the date we're counting down to
-        var countDownDate = new Date("Oct 30, 2024 23:59:59").getTime();
+        var countDownDate = new Date("Nov 10, 2024 23:59:59").getTime();
 
         // Update the countdown every 1 second
         var countdownfunction = setInterval(function() {
