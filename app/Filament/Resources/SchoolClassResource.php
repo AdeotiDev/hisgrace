@@ -33,10 +33,10 @@ class SchoolClassResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()    
                     ->maxLength(255),
-                Select::make('class_teacher_id')
-                    ->label('Class Teacher')
-                    ->options(User::whereHas('teacher')->pluck('name', 'id'))
-                    ->required(),
+                // Select::make('class_teacher_id')
+                //     ->label('Class Teacher')
+                //     ->options(User::whereHas('teacher')->pluck('name', 'id'))
+                //     ->required(),
                 Select::make('branch_ids')
                     ->multiple()
                     ->options(Branch::all()->pluck('name', 'id'))
@@ -53,10 +53,10 @@ class SchoolClassResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->label('Class Teacher')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('user.name')
+                //     ->label('Class Teacher')
+                //     ->numeric()
+                //     ->sortable(),
                 ViewColumn::make('branch_ids')
                     ->view('tables.columns.branches')
                     ->label('Branch')
