@@ -27,5 +27,6 @@ $(document).ready(function(){
 
 // For the header toggler
 function toggleMenu() {
-    document.querySelector('.mobile-nav').classList.toggle('active');
+    const mobileNav = document.getElementById("mobile-nav");
+    mobileNav.classList.toggle("active");
 }

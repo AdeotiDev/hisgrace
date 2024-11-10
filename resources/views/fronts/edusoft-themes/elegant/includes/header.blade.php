@@ -1,39 +1,42 @@
-<header class="header">
-    <div class="container d-flex align-items-center justify-content-between">
-        <!-- Logo -->
-        <a href="/" class="logo">
-            <img src="logo.png" alt="School Logo" class="logo-img">
-        </a>
 
-        <!-- Navigation (Desktop) -->
-        <nav class="nav">
-            <ul class="nav-list d-flex">
-                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="#about" class="nav-link">About Us</a></li>
-                <li class="nav-item"><a href="#programs" class="nav-link">Programs</a></li>
-                <li class="nav-item"><a href="#admissions" class="nav-link">Admissions</a></li>
-                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-                <li class="nav-item"><a href="#contact" class="nav-link">Student's Portal</a></li>
-                <li class="nav-item"><a href="#contact" class="nav-link">Teacher's Portal</a></li>
-            </ul>
-        </nav>
-
-        <!-- Mobile Menu Toggle -->
-        <div class="menu-toggle d-lg-none" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+    <!-- Header Section with Bootstrap Navbar -->
+    <header class="header bg-white sticky-top shadow-sm">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <!-- Logo -->
+                <a class="navbar-brand" href="#">
+                    <img src="logo.png" alt="Logo" class="logo-img" style="height: 50px;">
+                </a>
+    
+                <!-- Mobile Toggle Button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <!-- Navbar Links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Programs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Student's Portal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Teacher's Portal</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-    </div>
-
-    <!-- Mobile Navigation -->
-    <nav class="mobile-nav d-lg-none">
-        <ul class="mobile-nav-list">
-            <li class="mobile-nav-item"><a href="#home" class="mobile-nav-link">Home ##</a></li>
-            <li class="mobile-nav-item"><a href="#about" class="mobile-nav-link">About Us</a></li>
-            <li class="mobile-nav-item"><a href="#programs" class="mobile-nav-link">Programs</a></li>
-            <li class="mobile-nav-item"><a href="#admissions" class="mobile-nav-link">Admissions</a></li>
-            <li class="mobile-nav-item"><a href="#contact" class="mobile-nav-link">Contact</a></li>
-        </ul>
-    </nav>
-</header>
+    </header>
+    
