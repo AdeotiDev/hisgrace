@@ -12,8 +12,9 @@ class HomeController extends Controller
     public function index()
     {
         //
+        $schoolDetails = getSchoolDetails();
 
-        return view('fronts.edusoft-themes.elegant.home');
+        return view('fronts.edusoft-themes.elegant.home', compact('schoolDetails'));
 
 
     }
