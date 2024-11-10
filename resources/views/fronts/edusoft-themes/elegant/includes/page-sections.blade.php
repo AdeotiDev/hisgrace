@@ -1,7 +1,7 @@
 
 {{-- About Us --}}
 
-<section class="about-us py-5">
+<section class="about-us py-5" id="about">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 mb-4 mb-md-0">
@@ -23,7 +23,7 @@
 
 
 {{-- Our Programs --}}
-<section class="our-programs py-5">
+<section class="our-programs py-5" id="programs">
     <div class="container">
         <h2 class="display-5 text-center mb-5">Our Programs</h2>
         <div class="row">
@@ -66,7 +66,7 @@
 
 
 {{-- Curriculum Cards Sections --}}
-<section id="admission-curriculum-fees" class="admission-curriculum-fees py-5">
+<section id="admission-curriculum-fees" class="admission-curriculum-fees py-5" >
     <div class="container">
         <div class="row text-center">
             <!-- Admission Card -->
