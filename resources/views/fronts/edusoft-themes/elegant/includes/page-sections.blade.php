@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 mb-4 mb-md-0">
-                <img src="school-image.jpg" alt="Our School" class="img-fluid rounded shadow">
+                <img src="{{asset('school-images/building-1.jpg')}}" alt="Our School" class="img-fluid rounded shadow">
             </div>
             <div class="col-md-6">
                 <h2 class="display-5 mb-4">About Our School</h2>

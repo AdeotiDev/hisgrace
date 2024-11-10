@@ -29,7 +29,7 @@
     <!-- Mobile Navigation -->
     <nav class="mobile-nav d-lg-none">
         <ul class="mobile-nav-list">
-            <li class="mobile-nav-item"><a href="#home" class="mobile-nav-link">Home</a></li>
+            <li class="mobile-nav-item"><a href="#home" class="mobile-nav-link">Home ##</a></li>
             <li class="mobile-nav-item"><a href="#about" class="mobile-nav-link">About Us</a></li>
             <li class="mobile-nav-item"><a href="#programs" class="mobile-nav-link">Programs</a></li>
             <li class="mobile-nav-item"><a href="#admissions" class="mobile-nav-link">Admissions</a></li>
