@@ -1,6 +1,10 @@
 @extends('fronts.edusoft-themes.layouts.app')
 
-@section('title', 'HisGrace School')
+@php
+    $school_name = $schoolDetails['school_name'];
+@endphp
+
+@section('title', $school_name)
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/themes/elegant.css') }}"> 
 @endsection
