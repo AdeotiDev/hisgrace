@@ -19,6 +19,8 @@
     <!-- Meta Tags -->
     <meta name="description" content="{{$schoolDetails['meta_description']}}">
     <meta name="keywords" content="{{$schoolDetails['meta_keywords']}}">
+    {{-- favicon tag --}}
+    <link rel="icon" href="{{ Storage::url($schoolDetails['school_favicon']) }}" type="image/x-icon">
 </head>
 <body>
 
