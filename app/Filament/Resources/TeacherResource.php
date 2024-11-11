@@ -6,24 +6,25 @@ use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
 use App\Models\Branch;
+use App\Models\Subject;
 use App\Models\Teacher;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\SchoolClass;
 use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ViewColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\TeacherResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TeacherResource\RelationManagers;
-use App\Models\SchoolClass;
-use App\Models\Subject;
-use Filament\Forms\Components\Toggle;
-use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Columns\ViewColumn;
 
 class TeacherResource extends Resource
 {
@@ -58,7 +59,8 @@ class TeacherResource extends Resource
                             ->required(),
                         TextInput::make('password')
                             ->label('Password')
-                            ->dehydrateStateUsing(fn($state) => bcrypt($state))
+                            ->dehydrateStateUsing(fn ($state) => !empty($state) ? Hash::make($state) : null)
+                            ->dehydrated(fn ($state) => filled($state))
                             ->revealable()
                             ->password()
                             ->nullable() // Make it optional
