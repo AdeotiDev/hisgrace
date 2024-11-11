@@ -15,3 +15,12 @@ Route::get('/', function () {
 // });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+Route::get('/symlink', function(){
+    if(function_exists('symlink')) {
+        echo "symlink() is enabled.";
+    } else {
+        echo "symlink() is NOT enabled.";
+    }
+});
