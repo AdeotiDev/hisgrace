@@ -12,23 +12,24 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\SchoolClass;
 use Filament\Resources\Resource;
+use function Illuminate\Log\log;
+use Illuminate\Support\Facades\Hash;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
+use Illuminate\Container\Attributes\Log;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
+
 use App\Filament\Resources\StudentiResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\StudentiResource\RelationManagers;
-use Filament\Forms\Components\Hidden;
-use Illuminate\Container\Attributes\Log;
-
-use function Illuminate\Log\log;
-use Illuminate\Database\Eloquent\Model;
 
 class StudentiResource extends Resource
 {
