@@ -81,7 +81,8 @@ class StudentiResource extends Resource
 
                         TextInput::make('password')
                             ->label('Password')
-                            ->dehydrateStateUsing(fn($state) => bcrypt($state))
+                            ->dehydrateStateUsing(fn ($state) => !empty($state) ? Hash::make($state) : null)
+                            ->dehydrated(fn ($state) => filled($state))
                             ->revealable()
                             ->password()
                             ->visibleOn('create')
