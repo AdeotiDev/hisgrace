@@ -17,7 +17,8 @@
    
 
     <!-- Meta Tags -->
-    <meta name="description" content="The best school in the town">
+    <meta name="description" content="{{$schoolDetails['meta_description']}}">
+    <meta name="keywords" content="{{$schoolDetails['meta_keywords']}}">
 </head>
 <body>
 

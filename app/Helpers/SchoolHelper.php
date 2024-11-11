@@ -15,6 +15,10 @@ if (!function_exists('getSchoolDetails')) {
             'school_address' => $school->address,
             'school_phone' => $school->contact,
             'school_logo' => $school->logo,
+            'school_favicon' => $school->favicon,
+            'meta_description' => $school->meta_description,
+            'meta_title' => $school->meta_title,
+            'meta_keywords' => $school->meta_keywords,
         ];
     }
 
