@@ -1,7 +1,7 @@
 <x-filament::widget>
-    <x-filament::section class="student-badge-section">
+    <div class="student-badge-section p-0">
         <!-- Student Badge -->
-        <div class="student-badge-container">
+        <div class="student-badge-container m-0">
 
             <!-- Student Passport Column -->
             <div class="passport-column">
@@ -38,14 +38,14 @@
             </div>
 
         </div>
-    </x-filament::section>
+    </div>
 </x-filament::widget>
 @assets
 <style>
     /* General styles */
 .student-badge-section {
-    background-color: #f3f4f6;
-    padding: 20px;
+    background-color: transparent;
+    padding: 0px !important;
     border-radius: 10px;
 }
 
@@ -63,10 +63,14 @@
 
 /* Passport Column */
 .passport-column {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 .passport-img-container {
+    text-align: center;
     width: 120px;
     height: 120px;
     border-radius: 50%;
