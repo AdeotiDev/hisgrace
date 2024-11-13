@@ -33,7 +33,7 @@
             <div class="contact-column">
                 <h3 class="section-title contact-title">Contact Information</h3>
                 <p class="contact-item"><span class="bold">Email:</span> {{ $student->email }}</p>
-                <p class="contact-item"><span class="bold">Phone:</span> {{ $student->student->parent_contact ?? 'N/A' }}</p>
+                <p class="contact-item"><span class="bold">Phone:</span> {{ $student->student->guardian_phone ?? 'N/A' }}</p>
                 <p class="contact-item"><span class="bold">Address:</span> {{ $student->student->address ?? 'N/A' }}</p>
             </div>
 
