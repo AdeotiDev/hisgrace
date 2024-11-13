@@ -14,6 +14,7 @@ class StudentCustomDashboard extends Page
     protected static ?string $navigationLabel = "Dashboard";
 
     protected static string $view = 'filament.student.pages.student-custom-dashboard';
+    protected static ?string $slug = "dashboard";
 
 
 
