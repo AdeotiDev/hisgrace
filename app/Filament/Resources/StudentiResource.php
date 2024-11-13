@@ -80,15 +80,15 @@ class StudentiResource extends Resource
                                 $set('school_class_id', null); // Reset class_id on branch change
                             }),
 
-                        TextInput::make('password')
+                            TextInput::make('password')
                             ->label('Password')
                             ->dehydrateStateUsing(fn ($state) => !empty($state) ? Hash::make($state) : null)
                             ->dehydrated(fn ($state) => filled($state))
                             ->revealable()
                             ->password()
-                            ->visibleOn('create')
-                            ->required()
+                            ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord)
                             ->minLength(8),
+                        
 
                         TextInput::make('address')
                             ->label('Address')
@@ -187,6 +187,8 @@ class StudentiResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
                     ->searchable()
+                    ->copyable()
+                    ->copyMessage('Copied')
                     ->sortable(),
 
                 Tables\Columns\ImageColumn::make('passport')

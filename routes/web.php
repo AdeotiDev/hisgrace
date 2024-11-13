@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeworkController;
 use App\Models\SchoolClass;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 //     dd($classes_arr);
 // });
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
+// In routes/web.php
+Route::get('/homework/{homework}/download', [HomeworkController::class, 'download'])->name('homework.download')->middleware('auth');
 
 
 Route::get('/symlink', function(){

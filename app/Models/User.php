@@ -22,19 +22,49 @@ class User extends Authenticatable  implements FilamentUser
     use HasFactory, Notifiable;
 
 
-    public function canAccessPanel(Panel $panel): bool
-    {
-        if ($panel->getId() === 'admin') {
+    // public function canAccessPanel(Panel $panel): bool
+    // {
+    //     if ($panel->getId() === 'admin') {
                 
-            if(auth()->user()->is_admin === true){
-                return true;
-            }else{
-                return false;
-            }
-        }
+    //         if(auth()->user()->is_admin === true){
+    //             return true;
+    //         }else{
+    //             return false;
+    //         }
+    //     }
+    //     if ($panel->getId() === 'student') {
+    //             $is_student = User::where('id', auth()->id)->whereHas('student')->first();
+    //         if($is_student){
+    //             return true;
+    //         }else{
+    //             return false;
+    //         }
+    //     }
+       
  
-        return true;
+    //     return true;
+    // }
+
+   
+    public function getFilamentAvatarUrl(): ?string
+{
+    return asset($this->passport);//replace with $this->photo
+}
+
+    public function canAccessPanel(Panel $panel): bool
+{
+    if ($panel->getId() === 'admin') {
+        // Check if the authenticated user is an admin
+        return auth()->user()->is_admin === true;
     }
+
+    if ($panel->getId() === 'student') {
+        // Check if the authenticated user has an associated student record
+        return $this->student()->exists();
+    }
+
+    return true; // Default to allowing access for other panels
+}
 
     public function attendances()
     {
