@@ -87,7 +87,7 @@
 }
 
 .student-name {
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     font-weight: bold;
     margin-bottom: 5px;
 }

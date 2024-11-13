@@ -21,7 +21,7 @@
                     <p class="notice-description">{!! \Str::limit($notice->description, 150) !!}</p>
                     
                     <!-- Button to trigger modal -->
-                    <button class="view-more" onclick="openModal({{ $notice->id }})">View Full Description</button>
+                    <button class="view-more" onclick="openModal({{ $notice->id }})">Read Full Note</button>
                     
                     <!-- Modal for full description -->
                     <div id="modal-{{ $notice->id }}" class="modal">
