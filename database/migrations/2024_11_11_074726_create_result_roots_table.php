@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->json('branch_ids');
+            $table->json('exam_score_columns');
             $table->integer('grading_system_id');
             $table->timestamps();
         });

@@ -39,6 +39,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Red,
                 'success' => Color::Green,
                 'warning' => Color::Yellow,
+                'purple' => Color::Purple,
             ])
             ->defaultThemeMode(ThemeMode::Dark)
             ->brandName($schoolDetails['school_name'])

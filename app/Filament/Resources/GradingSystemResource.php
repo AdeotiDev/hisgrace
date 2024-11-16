@@ -25,7 +25,7 @@ class GradingSystemResource extends Resource
     protected static ?string $model = GradingSystem::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Exams';
+    protected static ?string $navigationGroup = 'Examinations';
 
 
     public static function form(Forms\Form $form): Forms\Form
@@ -46,11 +46,12 @@ class GradingSystemResource extends Resource
                 Repeater::make('grading_system')
                     ->label('Grades')
                     ->schema([
-                        TextInput::make('grade')->label('Grade')->placeholder('A,B,C,D,F for Fail')->required(),
+                        TextInput::make('grade')->label('Grade')->placeholder('A,B,C,D,F,...')->required(),
+                        TextInput::make('remark')->label('Remark')->placeholder('Excellent,Good,Bad,...')->required(),
                         TextInput::make('min_score')->label('Min Score')->numeric()->required(),
                         TextInput::make('max_score')->label('Max Score')->numeric()->required(),
                     ])
-                    ->columns(3)
+                    ->columns(4)
                     ->required(),
 
 

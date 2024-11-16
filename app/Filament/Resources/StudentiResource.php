@@ -179,6 +179,11 @@ class StudentiResource extends Resource
                     ->whereHas('student')
             )
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->label('Student_ID')
+                    ->copyable()
+                    ->copyMessage('Student ID Copied')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Full Name')
                     ->searchable()

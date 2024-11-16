@@ -11,7 +11,7 @@
                 ->get();
         @endphp
 
-        <div class="noticeboard-cards">
+        <div class="noticeboard-cards text-red-600">
             @foreach($notices as $notice)
                 <div class="noticeboard-card">
                     <div class="noticeboard-card-header">
