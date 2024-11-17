@@ -31,7 +31,7 @@
                             <a class="nav-link" href="#contact">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Student's Portal</a>
+                            <a class="nav-link" href={{route('filament.student.auth.login')}}>Student's Portal</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Teacher's Portal</a>

@@ -42,7 +42,7 @@ class ResultUploadResource extends Resource
     {
 
      
-        $loggedInStudentId = auth()->id();
+        
 
         return $table
         // ->query(
