@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 //     dd($classes_arr);
 // });
 
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 // In routes/web.php
-Route::get('/homework/{homework}/download', [HomeworkController::class, 'download'])->name('homework.download')->middleware('auth');
+Route::get('/homework/{homework}/download', [HomeworkController::class, 'download'])->name('homework.download');
 
 
 Route::get('/symlink', function(){

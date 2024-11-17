@@ -85,6 +85,9 @@ class ResultRootResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->description(function (ResultRoot $record) {
+                        return $record->description;
+                    })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('gradingSystem.name')
                     ->numeric()
