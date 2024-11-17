@@ -15,10 +15,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Student\Resources\ResultUploadResource\Pages;
 use App\Filament\Student\Resources\ResultUploadResource\RelationManagers;
 use App\Filament\Student\Resources\ResultUploadResource\Pages\StudentMyViewResult;
+use App\Models\ResultRoot;
 
 class ResultUploadResource extends Resource
 {
-    protected static ?string $model = ResultUpload::class;
+    protected static ?string $model = ResultRoot::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-up-on-square-stack';
     protected static ?string $navigationGroup = 'Exams';
@@ -49,14 +50,14 @@ class ResultUploadResource extends Resource
         //     ResultUpload::whereRaw("JSON_UNQUOTE(JSON_EXTRACT(card_items, '$.\"$loggedInStudentId\"')) IS NOT NULL")
         // )
             ->columns([
-                Tables\Columns\TextColumn::make('resultRoot.name')
+                Tables\Columns\TextColumn::make('name')
                     ->label('Result Root')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('class.name')
-                    ->label('Class')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('class.name')
+                //     ->label('Class')
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -73,7 +74,7 @@ class ResultUploadResource extends Resource
                 Tables\Actions\Action::make('view')
                     ->label('View Result')
                     ->icon('heroicon-o-eye')
-                    ->action(fn (ResultUpload $record) => redirect()->route('filament.student.resources.result-uploads.view-results', ['record' => $record->id]))
+                    ->action(fn (ResultRoot $record) => redirect()->route('filament.student.resources.result-uploads.view-results', ['record' => $record->id]))
                 ,
             ])
             // ->bulkActions([
