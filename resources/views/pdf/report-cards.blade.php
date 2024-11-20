@@ -1,13 +1,12 @@
-<x-filament-panels::page>
+<html>
+<head>
+    <title>Report Cards</title>
+</head>
+<body>
     @if($resultUploads->isEmpty())
         <p>No results uploaded for this result root.</p>
     @else
         {{-- Group results by class --}}
-
-       <div style="background: #003333; color:#fff; text-align:center; padding:10px 0px;">
-        <a href="{{ route('download-report-cards', $record->id) }}" class="btn btn-primary" style="border-radius:10px; border:1px solid #fff; padding:5px 10px;" >Download Report Cards as PDF</a>
-       </div> 
-       
 
 
         @php
@@ -41,7 +40,7 @@
         @foreach($resultsByClass as $classId => $classResults)
             <div class="tab-content hidden" id="tab-{{ $classId }}">
                 {{-- Class Header --}}
-                <h2 class="text-2xl font-semibold mb-4">{{ $classNames[$classId] }}</h2>
+                
 
                 {{-- Collect students and dynamic headers --}}
                 @php
@@ -168,49 +167,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="teacher_comment">
-                         {{-- Generate the average of all total divided by the number of subjects --}}
-                            <br><hr><br>
-                              <table class="w-full border-collapse border border-gray-300 text-left" cellpadding="10">
-                                <tr style="padding:10px;">
-                                    <th><b>Overall Total:</b></th>
-                                    <th><b>Average:</b></th>
-                                    <th><b>Teacher's Comment:</b></th>
-                                </tr>
-                                <tr>   
-                                    <td>{{ array_sum(array_column($studentData['subjects'], 'total')) }}</td>    
-                                    <td>{{ round(array_sum(array_column($studentData['subjects'], 'total')) / count($studentData['subjects']), 2) }}</td>    
-                                    {{-- Generate random teacher's comment based on the overall average. For example, if $overallAverage >= 90, it can have 'Excellent result!' or 'Outstanding result!' and so on      --}}
-                                    <td>
-                                        @php
-                                            $overallAverage = round(array_sum(array_column($studentData['subjects'], 'total')) / count($studentData['subjects']), 2);
-                                            if ($overallAverage >= 90) {
-                                                //Let $comment have random value like 'Excellent result!', or 'Outstanding result!', or 'Super performance!'
-                                                $comments = ['Excellent result!', 'Outstanding result!', 'Super performance!'];
-                                                $comment = $comments[array_rand($comments)];
-                                            } elseif ($overallAverage >= 80) {
-                                                $comment = 'Very good result!';
-                                                $comments = ['Very good result!', 'Keep it up!', 'Keep up your brilliance!'];
-                                                $comment = $comments[array_rand($comments)];
-                                            } elseif ($overallAverage >= 70) {
-                                                $comments = ['Good result!', 'Keep it up!', 'Try harder next time!'];
-                                                $comment = $comments[array_rand($comments)];
-                                            } elseif ($overallAverage >= 60) {
-                                                $comments = ['Fair result!', 'You can do more next time!', 'Keep it up!'];
-                                                $comment = $comments[array_rand($comments)];
-                                            } else {
-                                                $comments = ['Needs improvement!', 'Try harder next time!', 'Stay focused in your subjects!'];
-                                                $comment = $comments[array_rand($comments)];
-                                            }
-                                        @endphp
-                                        {{ $comment }}
-                                    </td>
-                                </tr>  
-                              </table>  
-
-                              <br><hr><br>
-
-                        </div>
                     </div>
                 @endforeach
             </div>
@@ -243,4 +199,6 @@
             }
         });
     </script>
-</x-filament-panels::page>
+
+</body>
+</html>

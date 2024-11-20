@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\HomeworkController;
 use App\Models\SchoolClass;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeworkController;
+use App\Http\Controllers\ReportCardPdfController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -19,6 +20,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // In routes/web.php
 Route::get('/homework/{homework}/download', [HomeworkController::class, 'download'])->name('homework.download');
 
+Route::get('/download-report-cards/{recordId}', [ReportCardPdfController::class, 'downloadReportCards'])
+    ->name('download-report-cards');
 
 Route::get('/symlink', function(){
     if(function_exists('symlink')) {
