@@ -17,10 +17,13 @@ use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ResultRootResource\Pages;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+
 use App\Filament\Resources\ResultRootResource\RelationManagers;
 use App\Filament\Resources\ResultRootResource\Pages\ViewResultsPage;
 
@@ -49,7 +52,12 @@ class ResultRootResource extends Resource
                     ->label('Grading System')
                     ->options(GradingSystem::all()->pluck('name', 'id'))
                     ->required(),
-
+                    
+                    DatePicker::make('next_term')
+                        ->required()
+                        ->label('Next Term Begins')
+                    
+                    ,
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->columnSpanFull(),
@@ -76,7 +84,7 @@ class ResultRootResource extends Resource
                         ->columnSpanFull(),
               ])
                 
-                    ])->columns(2),
+                    ])->columns(3),
             ]);
     }
 
@@ -95,6 +103,8 @@ class ResultRootResource extends Resource
                     ViewColumn::make('branch_ids')
                     ->view('tables.columns.branches')
                     ->label('Branches'),
+                Tables\Columns\TextColumn::make('next_term')
+                    ->date(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -108,6 +118,7 @@ class ResultRootResource extends Resource
                 //
             ])
             ->actions([
+              
                 Tables\Actions\EditAction::make()
                 ->button()
                 ,
@@ -125,6 +136,7 @@ class ResultRootResource extends Resource
                 ->requiresConfirmation()
                 ->button()
                 ->action(fn (ResultRoot $record) => static::downloadCsvTemplate($record)),
+               
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

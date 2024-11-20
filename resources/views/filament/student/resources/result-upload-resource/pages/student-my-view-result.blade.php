@@ -74,7 +74,7 @@
      
                            <!-- Student Details Column -->
                  <div class="details-column">
-                     
+                    <p class="detail-item"><span class="bold" style="font-weight: 600; color:darkmagenta;">{{$record->name}}</span></p>
                      <p class="detail-item"><span class="bold">Roll Number:</span> {{ $student->student->roll_number ?? 'N/A' }}</p>
                      <p class="detail-item"><span class="bold">Guardian:</span> {{ $student->student->guardian_name ?? 'N/A' }}</p>
                  </div>
@@ -85,6 +85,10 @@
                      
                      <p class="contact-item"><span class="bold">Class:</span> {{ $class->name ?? 'N/A' }}</p>
                      <p class="contact-item"><span class="bold">Number In Class:</span> {{ $number_in_class ?? 'N/A' }}</p>
+                     <p class="contact-item">
+                        <span class="bold">Next Term Begins:</span> 
+                        {{ $record->next_term ? \Carbon\Carbon::parse($record->next_term)->format('M j, Y') : 'N/A' }}
+                    </p>
                  </div>
                          
                      

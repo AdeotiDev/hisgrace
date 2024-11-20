@@ -16,7 +16,8 @@ class ResultRoot extends Model
         'description',
         'branch_ids',
         'exam_score_columns',
-        'grading_system_id'
+        'grading_system_id',
+        'next_term',
     ];
 
 
