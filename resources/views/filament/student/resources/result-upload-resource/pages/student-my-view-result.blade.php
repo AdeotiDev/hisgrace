@@ -76,7 +76,7 @@
                                 $query->where('student_class', $student->student_class);
                             })->count();
                         } else {
-                            $number_in_class = 0; // Default value if $student or $student->student_class is null
+                            $number_in_class = ""; // Default value if $student or $student->student_class is null
                         }
 
                         
