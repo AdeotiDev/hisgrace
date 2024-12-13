@@ -3,6 +3,15 @@
         @if($resultUploads->isEmpty())
             <p>No results uploaded for this result root.</p>
         @else
+            <div>
+                <button 
+    onclick="window.print()" 
+    style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    Print result
+</button>
+
+
+            </div>
             @php
                 $loggedInStudentId = auth()->user()->id;
                 $school_logo = $schoolDetails['school_logo'];
