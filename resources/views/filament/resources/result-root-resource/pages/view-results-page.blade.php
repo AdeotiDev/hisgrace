@@ -106,7 +106,16 @@
  
                     @php
                      //    $student = App\Models\User::find($studentData['info']->id);
-                        $number_in_class = App\Models\User::whereHas('student')->where('student_class', $student->student_class)->count();
+                        // $number_in_class = App\Models\User::whereHas('student')->where('student_class', $student->student_class)->count();
+
+                        if ($student && $student->student_class) {
+                            $number_in_class = App\Models\User::whereHas('student', function ($query) use ($student) {
+                                $query->where('student_class', $student->student_class);
+                            })->count();
+                        } else {
+                            $number_in_class = 0; // Default value if $student or $student->student_class is null
+                        }
+
                     @endphp
  
                        <!-- Student Details Column -->
@@ -172,11 +181,11 @@
                          {{-- Generate the average of all total divided by the number of subjects --}}
                             <br><hr><br>
                               <table class="w-full border-collapse border border-gray-300 text-left" cellpadding="10">
-                                <tr style="padding:10px;">
-                                    <th><b>Overall Total:</b></th>
-                                    <th><b>Average:</b></th>
-                                    <th><b>Teacher's Comment:</b></th>
-                                </tr>
+                                {{-- <tr style="padding:10px;">
+                                    <th><b>Overall Total</b></th>
+                                    <th><b>Average</b></th>
+                                    <th><b>Teacher's Comment</b></th>
+                                </tr> --}}
                                 <tr>   
                                     <td>{{ array_sum(array_column($studentData['subjects'], 'total')) }}</td>    
                                     <td>{{ round(array_sum(array_column($studentData['subjects'], 'total')) / count($studentData['subjects']), 2) }}</td>    
@@ -206,6 +215,13 @@
                                         {{ $comment }}
                                     </td>
                                 </tr>  
+                                <tr style="padding:10px;">
+                                    <td><b>Overall Total</b></td>
+                                    <td><b>Average</b></td>
+                                    <td><b>Teacher's Comment</b></td>
+                                </tr>
+
+
                               </table>  
 
                               <br><hr><br>
