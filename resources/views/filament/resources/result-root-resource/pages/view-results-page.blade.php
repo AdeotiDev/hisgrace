@@ -16,6 +16,8 @@
 
             foreach ($resultUploads as $resultUpload) {
                 $class = App\Models\SchoolClass::find($resultUpload->class_id);
+
+                
                 $className = $class->name ?? 'Unknown Class';
 
                 // Group results by class ID
