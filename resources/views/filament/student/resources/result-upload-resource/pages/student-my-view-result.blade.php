@@ -119,7 +119,7 @@
                     <!-- Results Table -->
                     <table class="w-full border-collapse border border-gray-300 text-left">
                         <thead class="bg-gray-200">
-                            <tr>
+                            <tr class="table-head">
                                 <th class="border px-2 py-1">SUBJECT</th>
                                 @foreach ($dynamicHeaders as $header)
                                     <th class="border px-2 py-1">{{ $header }}</th>
@@ -152,59 +152,77 @@
 
                     <div class="teacher_comment">
                          {{-- Generate the average of all total divided by the number of subjects --}}
-                            <br><hr><br>
-                              <table class="w-full border-collapse border border-gray-300 text-left" cellpadding="10">
-                                {{-- <tr style="padding:10px;">
-                                    <th><b>Overall Total</b></th>
-                                    <th><b>Average</b></th>
-                                    <th><b>Teacher's Comment</b></th>
-                                </tr> --}}
-                                <tr>   
-                                    <td>{{ array_sum(array_column($studentData['subjects'], 'total')) }}</td>    
-                                    <td>{{ round(array_sum(array_column($studentData['subjects'], 'total')) / count($studentData['subjects']), 2) }}</td>    
-                                    {{-- Generate random teacher's comment based on the overall average. For example, if $overallAverage >= 90, it can have 'Excellent result!' or 'Outstanding result!' and so on      --}}
-                                    <td>
-                                        @php
-                                            $overallAverage = round(array_sum(array_column($studentData['subjects'], 'total')) / count($studentData['subjects']), 2);
-                                            if ($overallAverage >= 90) {
-                                                //Let $comment have random value like 'Excellent result!', or 'Outstanding result!', or 'Super performance!'
-                                                $comments = ['Excellent result!', 'Outstanding result!', 'Super performance!'];
-                                                $comment = $comments[array_rand($comments)];
-                                            } elseif ($overallAverage >= 80) {
-                                                $comment = 'Very good result!';
-                                                $comments = ['Very good result!', 'Keep it up!', 'Keep up your brilliance!'];
-                                                $comment = $comments[array_rand($comments)];
-                                            } elseif ($overallAverage >= 70) {
-                                                $comments = ['Good result!', 'Keep it up!', 'Try harder next time!'];
-                                                $comment = $comments[array_rand($comments)];
-                                            } elseif ($overallAverage >= 60) {
-                                                $comments = ['Fair result!', 'You can do more next time!', 'Keep it up!'];
-                                                $comment = $comments[array_rand($comments)];
-                                            } else {
-                                                $comments = ['Needs improvement!', 'Try harder next time!', 'Stay focused in your subjects!'];
-                                                $comment = $comments[array_rand($comments)];
-                                            }
-                                        @endphp
-                                        {{ $comment }}
-                                    </td>
-                                    <td>
-                                        {{ $schoolDetails['principal_name'] }}
-                                        <br>
-                                        <img src="{{ Storage::url($principal_signature) }}" alt="signature" class="logo-img" style="height: 50px;">
-
-                                    </td>
-                                </tr>  
-                                <tr style="padding:10px;">
-                                    <td><b>Overall Total</b></td>
-                                    <td><b>Average</b></td>
-                                    <td><b>Teacher's Comment</b></td>
-                                    <td><b>Principal</b></td>
-                                </tr>
+                               {{-- Key to grades... --}}
+                               <div class="key-to-grades w-full my-4">
+                                @php
+                                    $grade_systems = App\Models\GradingSystem::find($record->grading_system_id);
+                                    $grading_system = $grade_systems->grading_system;
 
 
-                              </table>  
 
-                              <br><hr><br>
+                                @endphp
+                                <strong>Key to Grades:</strong> 
+                                @foreach ($grading_system as $grade)
+                                {{ $grade['min_score'] }} - {{ $grade['max_score'] }} = {{ $grade['grade'] }} 
+                                @if (!$loop->last) || @endif
+                            @endforeach
+                                </div>
+                            {{-- Remarks Table --}}
+                              <table  class="w-full">
+                                <thead >
+                                    <tr class="table-head">
+                                      <th style="text-align:center;" colspan="2">Remarks/Comments</th>    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight:600; width: 30%;" class="border px-2 py-1">Total Score</td>
+                                        <td>{{ array_sum(array_column($studentData['subjects'], 'total')) }}</td>    
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight:600; width: 30%;" class="border px-2 py-1">Average</td>
+                                        <td>{{ round(array_sum(array_column($studentData['subjects'], 'total')) / count($studentData['subjects']), 2) }}</td>     
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight:600; width: 30%;" class="border px-2 py-1">Principal's Remarks</td>
+                                        <td>
+                                            @php
+                                                $overallAverage = round(array_sum(array_column($studentData['subjects'], 'total')) / count($studentData['subjects']), 2);
+                                                if ($overallAverage >= 90) {
+                                                    //Let $comment have random value like 'Excellent result!', or 'Outstanding result!', or 'Super performance!'
+                                                    $comments = ['Excellent result!', 'Outstanding result!', 'Super performance!'];
+                                                    $comment = $comments[array_rand($comments)];
+                                                } elseif ($overallAverage >= 80) {
+                                                    $comment = 'Very good result!';
+                                                    $comments = ['Very good result!', 'Keep it up!', 'Keep up your brilliance!'];
+                                                    $comment = $comments[array_rand($comments)];
+                                                } elseif ($overallAverage >= 70) {
+                                                    $comments = ['Good result!', 'Keep it up!', 'Try harder next time!'];
+                                                    $comment = $comments[array_rand($comments)];
+                                                } elseif ($overallAverage >= 60) {
+                                                    $comments = ['Fair result!', 'You can do more next time!', 'Keep it up!'];
+                                                    $comment = $comments[array_rand($comments)];
+                                                } else {
+                                                    $comments = ['Needs improvement!', 'Try harder next time!', 'Stay focused in your subjects!'];
+                                                    $comment = $comments[array_rand($comments)];
+                                                }
+                                            @endphp
+                                            {{ $comment }}
+                                        </td>     
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div style="margin-top:30px;">
+                                <img src="{{ Storage::url($principal_signature) }}" alt="signature" class="logo-img" style="height: 50px;">
+                               
+                                {{ $schoolDetails['principal_name'] }}
+                                <br>
+                                <b><cite>Principal</cite></b>
+                                        
+
+                            </div>
 
                         </div>
                 </div>
@@ -216,7 +234,7 @@
 
 
 
-
+    @assets
     <script>
         function printResult() {
             const printContent = document.getElementById('printableArea').innerHTML;
@@ -228,7 +246,28 @@
             window.location.reload(); // Refresh to restore JS functionality
         }
     </script>
-
+    <style>
+        div.key-to-grades{
+            background-color: #f4fa9c;
+            text-align: center;
+            padding: 10px;
+        }
+        table{
+            margin-top:20px;
+            }
+        .table-head{
+            background-color: rgb(5, 107, 5) !important;
+            color:#fff;
+            width: 100% !important;
+        }
+       
+        tr:nth-child(even){
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(odd){
+            background-color: #d2eafd;
+        }
+    </style>
     <style>
         @media print {
             body * {
@@ -248,4 +287,5 @@
             }
         }
     </style>
+    @endassets
 </x-filament-panels::page>
