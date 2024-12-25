@@ -75,6 +75,7 @@
                         }
                     }
                     $school_logo = $schoolDetails['school_logo'];
+                    $principal_signature = $schoolDetails['principal_signature'];
                 @endphp
 
                 {{-- Render cards for each student --}}
@@ -216,11 +217,18 @@
                                         @endphp
                                         {{ $comment }}
                                     </td>
+                                    <td>
+                                        {{ $schoolDetails['principal_name'] }}
+                                        <br>
+                                        <img src="{{ Storage::url($school_logo) }}" alt="signature" class="logo-img" style="height: 30px;">
+
+                                    </td>
                                 </tr>  
                                 <tr style="padding:10px;">
                                     <td><b>Overall Total</b></td>
                                     <td><b>Average</b></td>
                                     <td><b>Teacher's Comment</b></td>
+                                    <td><b>Principal</b></td>
                                 </tr>
 
 
