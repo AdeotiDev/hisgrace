@@ -16,6 +16,7 @@
             @php
                 $loggedInStudentId = auth()->user()->id;
                 $school_logo = $schoolDetails['school_logo'];
+                $principal_signature = $schoolDetails['principal_signature'];
                 $studentData = [];
                 $dynamicHeaders = [];
 
