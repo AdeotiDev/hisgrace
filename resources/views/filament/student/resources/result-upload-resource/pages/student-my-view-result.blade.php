@@ -140,7 +140,7 @@
                                         <td class="border px-2 py-1">{{ $subject['scores'][$header] ?? 'N/A' }}</td>
                                     @endforeach
                                     <td class="border px-2 py-1">{{ $subject['total'] }}</td>
-                                    <td class="border px-2 py-1">{{ $subject['average'] }}</td>
+                                    <td class="border px-2 py-1">{{ number_format($subject['average'],2) }}</td>
                                     <td class="border px-2 py-1">{{ $subject['highest'] }}</td>
                                     <td class="border px-2 py-1">{{ $subject['lowest'] }}</td>
                                     <td class="border px-2 py-1">{{ $subject['grade'] }}</td>
@@ -181,7 +181,7 @@
                                     </tr>
                                     <tr>
                                         <td style="font-weight:600; width: 30%;" class="border px-2 py-1">Average</td>
-                                        <td>{{ round(array_sum(array_column($studentData['subjects'], 'total')) / count($studentData['subjects']), 2) }}</td>     
+                                        <td>{{ number_format(array_sum(array_column($studentData['subjects'], 'total')) / count($studentData['subjects']), 2) }}</td>     
                                     </tr>
                                     <tr>
                                         <td style="font-weight:600; width: 30%;" class="border px-2 py-1">Principal's Remarks</td>
