@@ -220,7 +220,7 @@
                                     <td>
                                         {{ $schoolDetails['principal_name'] }}
                                         <br>
-                                        <img src="{{ Storage::url($principal_signature) }}" alt="signature" class="logo-img" style="height: 30px;">
+                                        <img src="{{ Storage::url($principal_signature) }}" alt="signature" class="logo-img" style="height: 50px;">
 
                                     </td>
                                 </tr>  
