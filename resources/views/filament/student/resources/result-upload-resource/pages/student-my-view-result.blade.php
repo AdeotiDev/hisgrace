@@ -9,7 +9,10 @@
                     style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                     Print result
                 </button>
-
+                <a href="{{ route('download.result', $record->id) }}" 
+                    style="background-color: #007BFF; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-decoration: none;">
+                    Download PDF
+                </a>
 
             </div>
             <div id="printableArea">
@@ -161,7 +164,7 @@
 
 
                                 @endphp
-                                <strong>Key to Grades:</strong> 
+                                <strong >Key to Grades:</strong> 
                                 @foreach ($grading_system as $grade)
                                 {{ $grade['min_score'] }} - {{ $grade['max_score'] }} = {{ $grade['grade'] }} 
                                 @if (!$loop->last) || @endif
@@ -234,7 +237,7 @@
 
 
 
-    @assets
+    
     <script>
         function printResult() {
             const printContent = document.getElementById('printableArea').innerHTML;
@@ -270,6 +273,19 @@
     </style>
     <style>
         @media print {
+            .table-head {
+        background-color: rgb(5, 107, 5) !important;
+        color: #fff !important;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2 !important;
+    }
+    tr:nth-child(odd) {
+        background-color: #d2eafd !important;
+    }
+    div.key-to-grades {
+        background-color: #f4fa9c !important;
+    }
             body * {
                 visibility: hidden;
             }
@@ -281,11 +297,13 @@
                 top: 0;
                 left: 0;
                 width: 100%;
+                background-color: red !important;
+                border:3px solid red !important;
             }
             button {
                 display: none;
             }
         }
     </style>
-    @endassets
+    
 </x-filament-panels::page>

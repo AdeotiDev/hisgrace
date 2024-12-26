@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomeworkController;
 use App\Http\Controllers\ReportCardPdfController;
+use App\Http\Controllers\ResultController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -23,10 +24,12 @@ Route::get('/homework/{homework}/download', [HomeworkController::class, 'downloa
 Route::get('/download-report-cards/{recordId}', [ReportCardPdfController::class, 'downloadReportCards'])
     ->name('download-report-cards');
 
-Route::get('/symlink', function(){
-    if(function_exists('symlink')) {
+Route::get('/symlink', function () {
+    if (function_exists('symlink')) {
         echo "symlink() is enabled.";
     } else {
         echo "symlink() is NOT enabled.";
     }
 });
+
+Route::get('/download-result/{recordId}', [ResultController::class, 'downloadResult'])->name('download.result');

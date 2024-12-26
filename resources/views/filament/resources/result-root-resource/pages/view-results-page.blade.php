@@ -50,6 +50,38 @@
                     $students = [];
                     $dynamicHeaders = []; // To track all possible score headers dynamically
 
+
+                
+
+
+                 // Prepare an array of total scores for all students
+    $studentsWithScores = [];
+
+    foreach ($students as $studentId => $studentData) {
+        $totalScore = array_sum(array_column($studentData['subjects'], 'total'));
+        $studentsWithScores[$studentId] = $totalScore;
+    }
+
+    // Sort the students by total score in descending order to rank them
+    arsort($studentsWithScores);
+
+    // Assign ranks with ordinal suffixes
+    $positions = [];
+    $rank = 1;
+    foreach ($studentsWithScores as $studentId => $score) {
+        $positions[$studentId] = ordinal_suffix($rank++);
+    }
+
+    // Helper function for ordinal suffix
+    function ordinal_suffix($number)
+    {
+        $suffixes = ['th', 'st', 'nd', 'rd'];
+        $value = $number % 100;
+
+        return $number . ($suffixes[($value - 20) % 10] ?? $suffixes[$value] ?? $suffixes[0]);
+    }
+
+
                     foreach ($classResults as $resultUpload) {
                         $subject = App\Models\Subject::find($resultUpload->subject_id);
                         $cardItems = is_array($resultUpload->card_items) ? $resultUpload->card_items : json_decode($resultUpload->card_items, true);
@@ -65,10 +97,16 @@
                                     'average' => $result['average'] ?? 'N/A',
                                     'highest' => $result['highest'] ?? 'N/A',
                                     'lowest' => $result['lowest'] ?? 'N/A',
+                                    // 'position' => $result['position'] ?? 'N/A',
                                     'grade' => $result['grade'] ?? 'N/A',
                                     'remark' => $result['remark'] ?? 'N/A',
                                 ];
 
+                            //   Calculate total score of each student by subject
+                         
+                                
+
+                                // echo json_encode($result['position']);
                                 // Collect headers dynamically
                                 $dynamicHeaders = array_unique(array_merge($dynamicHeaders, array_keys($result['scores'] ?? [])));
                             }
@@ -158,7 +196,8 @@
                                     <th class="border px-2 py-1">TOTAL</th>
                                     <th class="border px-2 py-1">AVERAGE</th>
                                     <th class="border px-2 py-1">HIGHEST</th>
-                                    <th class="border px-2 py-1">LOWEST</th>
+                                    <th class="border px-2 py-1">LOWEST</th> <!-- Add this -->
+                                    {{-- <th class="border px-2 py-1">POSITION</th> <!-- Add this --> --}}
                                     <th class="border px-2 py-1">GRADE</th>
                                     <th class="border px-2 py-1">REMARK</th>
                                 </tr>
@@ -173,7 +212,16 @@
                                         <td class="border px-2 py-1">{{ $subject['total'] }}</td>
                                         <td class="border px-2 py-1">{{ number_format($subject['average'],2) }}</td>
                                         <td class="border px-2 py-1">{{ $subject['highest'] }}</td>
-                                        <td class="border px-2 py-1">{{ $subject['lowest'] }}</td>
+
+                                        {{-- Calculate Lowest and Position here --}}
+                                        
+
+                                        @php
+                                            // $lowestScoreStudent = array_search(min($subject['total']), $subject['scores']);
+                                        @endphp
+                                        <td class="border px-2 py-1">{{ $subject['lowest'] }}</td> 
+                                        {{-- <td class="border px-2 py-1">{{ $subject['position']  }}</td> --}}
+                                    
                                         <td class="border px-2 py-1">{{ $subject['grade'] }}</td>
                                         <td class="border px-2 py-1">{{ $subject['remark'] }}</td>
                                     </tr>
@@ -283,7 +331,8 @@
         }
        
         tr:nth-child(even){
-            background-color: #f2f2f2;
+            background-color: #fff;
+            border:none !important;
         }
         tr:nth-child(odd){
             background-color: #d2eafd;
