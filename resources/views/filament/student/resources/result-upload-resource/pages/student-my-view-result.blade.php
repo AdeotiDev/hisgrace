@@ -132,7 +132,7 @@
                                 <th class="border px-2 py-1">HIGHEST</th>
                                 <th class="border px-2 py-1">LOWEST</th>
                                 <th class="border px-2 py-1">GRADE</th>
-                                <th class="border px-2 py-1">REMARK</th>
+                                {{-- <th class="border px-2 py-1">REMARK</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -147,7 +147,7 @@
                                     <td class="border px-2 py-1">{{ $subject['highest'] }}</td>
                                     <td class="border px-2 py-1">{{ $subject['lowest'] }}</td>
                                     <td class="border px-2 py-1">{{ $subject['grade'] }}</td>
-                                    <td class="border px-2 py-1">{{ $subject['remark'] }}</td>
+                                    {{-- <td class="border px-2 py-1">{{ $subject['remark'] }}</td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
