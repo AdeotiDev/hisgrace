@@ -122,7 +122,7 @@
                     <!-- Results Table -->
                     <table class="w-full border-collapse border border-gray-300 text-left">
                         <thead class="bg-gray-200">
-                            <tr class="table-head">
+                            <tr class="table-head" style="font-size:13px;">
                                 <th class="border px-2 py-1">SUBJECT</th>
                                 @foreach ($dynamicHeaders as $header)
                                     <th class="border px-2 py-1">{{ $header }}</th>
