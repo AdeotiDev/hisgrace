@@ -9,10 +9,10 @@
                     style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                     Print result
                 </button>
-                <a href="{{ route('download.result', $record->id) }}" 
+                {{-- <a href="{{ route('download.result', $record->id) }}" 
                     style="background-color: #007BFF; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-decoration: none;">
                     Download PDF
-                </a>
+                </a> --}}
 
             </div>
             <div id="printableArea">
@@ -156,7 +156,7 @@
                     <div class="teacher_comment">
                          {{-- Generate the average of all total divided by the number of subjects --}}
                                {{-- Key to grades... --}}
-                               <div class="key-to-grades w-full my-4">
+                               <div class="key-to-grades w-full my-4" style="background-color: #f4fa9c;">
                                 @php
                                     $grade_systems = App\Models\GradingSystem::find($record->grading_system_id);
                                     $grading_system = $grade_systems->grading_system;
@@ -223,6 +223,10 @@
                                 {{ $schoolDetails['principal_name'] }}
                                 <br>
                                 <b><cite>Principal</cite></b>
+                                <hr><br>
+                                <center>
+                                    <cite>&copy; {{ date('Y') }} Powered by Paramount Edusoft</cite>
+                                </center>
                                         
 
                             </div>
@@ -231,6 +235,29 @@
                 </div>
             @endif
         @endif
+
+        <style>
+            div.key-to-grades{
+                background-color: #f4fa9c;
+                text-align: center;
+                padding: 10px;
+            }
+            table{
+                margin-top:20px;
+                }
+            .table-head{
+                background-color: rgb(5, 107, 5) !important;
+                color:#fff;
+                width: 100% !important;
+            }
+           
+            tr:nth-child(even){
+                background-color: #f2f2f2;
+            }
+            tr:nth-child(odd){
+                background-color: #d2eafd;
+            }
+        </style>
 
             </div>
     </div>
@@ -249,43 +276,10 @@
             window.location.reload(); // Refresh to restore JS functionality
         }
     </script>
-    <style>
-        div.key-to-grades{
-            background-color: #f4fa9c;
-            text-align: center;
-            padding: 10px;
-        }
-        table{
-            margin-top:20px;
-            }
-        .table-head{
-            background-color: rgb(5, 107, 5) !important;
-            color:#fff;
-            width: 100% !important;
-        }
-       
-        tr:nth-child(even){
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(odd){
-            background-color: #d2eafd;
-        }
-    </style>
+   
     <style>
         @media print {
-            .table-head {
-        background-color: rgb(5, 107, 5) !important;
-        color: #fff !important;
-    }
-    tr:nth-child(even) {
-        background-color: #f2f2f2 !important;
-    }
-    tr:nth-child(odd) {
-        background-color: #d2eafd !important;
-    }
-    div.key-to-grades {
-        background-color: #f4fa9c !important;
-    }
+        
             body * {
                 visibility: hidden;
             }
@@ -297,8 +291,6 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                background-color: red !important;
-                border:3px solid red !important;
             }
             button {
                 display: none;
