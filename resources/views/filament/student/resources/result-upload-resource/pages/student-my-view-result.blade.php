@@ -147,7 +147,7 @@
                                     <td class="border px-2 py-1">{{ $subject['highest'] }}</td>
                                     <td class="border px-2 py-1">{{ $subject['lowest'] }}</td>
                                     <td class="border px-2 py-1">{{ $subject['grade'] }}</td>
-                                    <td class="border px-2 py-1">{{ $subject['remark'] }}</td>
+                                    <td class="border px-2 py-1" style="font-size: 13px;">{{ $subject['remark'] }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
