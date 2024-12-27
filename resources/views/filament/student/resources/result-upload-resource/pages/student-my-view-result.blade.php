@@ -140,13 +140,13 @@
                                 <tr>
                                     <td class="border px-2 py-1">{{ $subject['name'] }}</td>
                                     @foreach ($dynamicHeaders as $header)
-                                        <td class="border px-2 py-1">{{ $subject['scores'][$header] ?? 'N/A' }}</td>
+                                        <td class="border px-2 py-1" style="text-align: center;">{{ $subject['scores'][$header] ?? 'N/A' }}</td>
                                     @endforeach
                                     <td class="border px-2 py-1">{{ $subject['total'] }}</td>
                                     <td class="border px-2 py-1">{{ number_format($subject['average'],2) }}</td>
                                     <td class="border px-2 py-1">{{ $subject['highest'] }}</td>
                                     <td class="border px-2 py-1">{{ $subject['lowest'] }}</td>
-                                    <td class="border px-2 py-1">{{ $subject['grade'] }}</td>
+                                    <td class="border px-2 py-1" style="text-align: center;">{{ $subject['grade'] }}</td>
                                     <td class="border px-2 py-1" style="font-size: 13px;">{{ $subject['remark'] }}</td>
                                 </tr>
                             @endforeach
