@@ -24,7 +24,7 @@ class ResultUploadResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-up-on-square-stack';
     protected static ?string $navigationGroup = 'Exams';
-    protected static ?string $navigationLabel = 'My Results V';
+    protected static ?string $navigationLabel = 'My Results';
 
     public static function getEloquentQuery(): Builder
     {
