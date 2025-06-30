@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ResultUpload;
 use App\Models\GradingSystem;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,6 +27,12 @@ class ResultRoot extends Model
         'exam_score_columns' => 'array',
     ];
 
+
+
+    public function resultUploads()
+    {
+        return $this->hasMany(ResultUpload::class, 'result_root_id');
+    }
 
 
 

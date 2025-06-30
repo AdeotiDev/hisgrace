@@ -12,10 +12,16 @@ class ResultUpload extends Model
 {
     //
 
+    // public function resultRoot()
+    // {
+    //     return $this->belongsTo(ResultRoot::class);
+    // }
+    // In ResultUpload.php
     public function resultRoot()
     {
-        return $this->belongsTo(ResultRoot::class);
+        return $this->belongsTo(ResultRoot::class, 'result_root_id');
     }
+
     public function class()
     {
         return $this->belongsTo(SchoolClass::class, 'class_id');
