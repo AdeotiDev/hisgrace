@@ -16,6 +16,7 @@ use App\Filament\Student\Resources\ResultUploadResource\Pages;
 use App\Filament\Student\Resources\ResultUploadResource\RelationManagers;
 use App\Filament\Student\Resources\ResultUploadResource\Pages\StudentMyViewResult;
 use App\Models\ResultRoot;
+use Illuminate\Support\Facades\Auth;
 
 class ResultUploadResource extends Resource
 {
@@ -23,8 +24,17 @@ class ResultUploadResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-up-on-square-stack';
     protected static ?string $navigationGroup = 'Exams';
-    protected static ?string $navigationLabel = 'My Results';
+    protected static ?string $navigationLabel = 'My Results V';
 
+    public static function getEloquentQuery(): Builder
+    {
+        $studentId = Auth::id();
+
+        return parent::getEloquentQuery()
+            ->whereHas('resultUploads', function ($query) use ($studentId) {
+                $query->where('card_items', 'like', '%"' . $studentId . '":%');
+            });
+    }
     public static function form(Form $form): Form
     {
         return $form
@@ -42,13 +52,13 @@ class ResultUploadResource extends Resource
     public static function table(Table $table): Table
     {
 
-     
-        
+
+
 
         return $table
-        // ->query(
-        //     ResultUpload::whereRaw("JSON_UNQUOTE(JSON_EXTRACT(card_items, '$.\"$loggedInStudentId\"')) IS NOT NULL")
-        // )
+            // ->query(
+            //     ResultUpload::whereRaw("JSON_UNQUOTE(JSON_EXTRACT(card_items, '$.\"$loggedInStudentId\"')) IS NOT NULL")
+            // )
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Result Root')
@@ -74,18 +84,17 @@ class ResultUploadResource extends Resource
                 Tables\Actions\Action::make('view')
                     ->label('View Result')
                     ->icon('heroicon-o-eye')
-                    ->action(fn (ResultRoot $record) => redirect()->route('filament.student.resources.result-uploads.view-results', ['record' => $record->id]))
-                ,
+                    ->action(fn(ResultRoot $record) => redirect()->route('filament.student.resources.result-uploads.view-results', ['record' => $record->id])),
             ])
             // ->bulkActions([
             //     Tables\Actions\BulkActionGroup::make([
             //         Tables\Actions\DeleteBulkAction::make(),
             //     ]),
             // ])
-            ;
+        ;
     }
 
-    
+
 
     public static function getRelations(): array
     {
