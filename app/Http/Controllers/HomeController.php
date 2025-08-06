@@ -18,7 +18,7 @@ class HomeController extends Controller
 
 
     }
-    public function index()
+    public function home2()
     {
         //
         $schoolDetails = getSchoolDetails();
