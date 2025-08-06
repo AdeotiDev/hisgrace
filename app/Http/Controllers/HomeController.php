@@ -18,6 +18,15 @@ class HomeController extends Controller
 
 
     }
+    public function index()
+    {
+        //
+        $schoolDetails = getSchoolDetails();
+
+        return view('frontend/home2', compact('schoolDetails'));
+
+
+    }
 
     /**
      * Show the form for creating a new resource.

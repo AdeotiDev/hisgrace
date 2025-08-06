@@ -18,6 +18,7 @@ use App\Http\Controllers\ResultController;
 // });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/home2', [HomeController::class, 'home2'])->name('home2');
 // In routes/web.php
 Route::get('/homework/{homework}/download', [HomeworkController::class, 'download'])->name('homework.download');
 
