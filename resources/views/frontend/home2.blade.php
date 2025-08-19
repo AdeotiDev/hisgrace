@@ -1466,7 +1466,7 @@
         <div class="container">
             <nav class="navbar">
                 <div class="logo">
-                    <img src="https://hisgracegroupofschools.com.ng/storage/01JJ9P6YTRRWARKAAV5Z1JZGTJ.png"
+                    <img src="{{asset('school-images/hgs-logo.webp')}}"
                         alt="HisGrace Schools Logo">
                     <h1>HisGrace<span> Schools</span></h1>
                 </div>
@@ -1523,7 +1523,7 @@
                     <button class="btn" id="discoverStoryBtn">Discover Our Story</button>
                 </div>
                 <div class="welcome-image" data-aos="fade-left">
-                    <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0122-1024x683.jpg"
+                    <img src="{{asset('school-images/hgs4.webp')}}"
                         alt="Happy students at HisGrace Schools">
                 </div>
             </div>
@@ -1586,7 +1586,7 @@
             <div class="programs-container">
                 <div class="program-card" data-aos="fade-up" data-aos-delay="100" data-program="stem">
                     <div class="card-image">
-                        <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0191-1024x683.jpg"
+                        <img src="{{asset('school-images/hgs1.webp')}}"
                             alt="STEM Program">
                     </div>
                     <div class="card-content">
@@ -1601,7 +1601,7 @@
                 </div>
                 <div class="program-card" data-aos="fade-up" data-aos-delay="200" data-program="arts">
                     <div class="card-image">
-                        <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0172-1024x683.jpg"
+                        <img src="{{asset('school-images/hgs2.webp')}}"
                             alt="Arts Program">
                     </div>
                     <div class="card-content">
@@ -1616,7 +1616,7 @@
                 </div>
                 <div class="program-card" data-aos="fade-up" data-aos-delay="300" data-program="sports">
                     <div class="card-image">
-                        <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0207-1024x683.jpg"
+                        <img src="{{asset('school-images/hgs4.webp')}}"
                             alt="Sports Program">
                     </div>
                     <div class="card-content">
@@ -1729,7 +1729,7 @@
                     </p>
                     <div class="testimonial-author">
                         <div class="author-image">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Parent">
+                            <img src="{{asset('school-images/hgs4.webp')}}" alt="Parent">
                         </div>
                         <div class="author-info">
                             <h4>Mrs. Adekunle</h4>
@@ -1743,7 +1743,7 @@
                         skills. The school feels like a big, happy family!</p>
                     <div class="testimonial-author">
                         <div class="author-image">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Parent">
+                            <img src="{{asset('school-images/hgs4.webp')}}" alt="Parent">
                         </div>
                         <div class="author-info">
                             <h4>Mr. Okon</h4>
@@ -1757,7 +1757,7 @@
                         make learning joyful and meaningful for children of all ages.</p>
                     <div class="testimonial-author">
                         <div class="author-image">
-                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Parent">
+                            <img src="{{asset('school-images/hgs3.webp')}}" alt="Parent">
                         </div>
                         <div class="author-info">
                             <h4>Dr. (Mrs) Bello</h4>
@@ -1782,35 +1782,35 @@
             </div>
             <div class="gallery-container">
                 <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
-                    <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0122-1024x683.jpg"
+                    <img src="{{asset('school-images/hgs4.webp')}}"
                         alt="Classroom activities">
                     <div class="gallery-overlay">
                         <h4>Colorful Classrooms</h4>
                     </div>
                 </div>
                 <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0131-1024x683.jpg"
+                    <img src="{{asset('school-images/hgs1.webp')}}"
                         alt="Students playing">
                     <div class="gallery-overlay">
                         <h4>Play & Learn</h4>
                     </div>
                 </div>
                 <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300">
-                    <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0207-1024x683.jpg"
+                    <img src="{{asset('school-images/hgs2.webp')}}"
                         alt="Sports activities">
                     <div class="gallery-overlay">
                         <h4>Sports & Games</h4>
                     </div>
                 </div>
                 <div class="gallery-item" data-aos="zoom-in" data-aos-delay="400">
-                    <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0191-1024x683.jpg"
+                    <img src="{{asset('school-images/hgs3.webp')}}"
                         alt="Science experiments">
                     <div class="gallery-overlay">
                         <h4>Science Fun</h4>
                     </div>
                 </div>
                 <div class="gallery-item" data-aos="zoom-in" data-aos-delay="500">
-                    <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0172-1024x683.jpg"
+                    <img src="{{asset('school-images/hgs4.webp')}}"
                         alt="Art activities">
                     <div class="gallery-overlay">
                         <h4>Creative Arts</h4>
@@ -1887,35 +1887,34 @@
                     <h3>Gallery</h3>
                     <div class="gallery-grid">
                         <div class="gallery-item-small">
-                            <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0122-1024x683.jpg"
+                            <img src="{{asset('school-images/hgs4.webp')}}"
                                 alt="School Gallery">
                         </div>
                         <div class="gallery-item-small">
-                            <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0131-1024x683.jpg"
+                            <img src="{{asset('school-images/hgs3.webp')}}"
                                 alt="School Gallery">
                         </div>
                         <div class="gallery-item-small">
-                            <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0207-1024x683.jpg"
+                            <img src="{{asset('school-images/hgs2.webp')}}"
                                 alt="School Gallery">
                         </div>
                         <div class="gallery-item-small">
-                            <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0191-1024x683.jpg"
+                            <img src="{{asset('school-images/hgs1.webp')}}"
                                 alt="School Gallery">
                         </div>
                         <div class="gallery-item-small">
-                            <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0172-1024x683.jpg"
+                            <img src="{{asset('school-images/hgs2.webp')}}"
                                 alt="School Gallery">
                         </div>
                         <div class="gallery-item-small">
-                            <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0163-1024x683.jpg"
+                            <img src="{{asset('school-images/hgs-chair.webp')}}"
                                 alt="School Gallery">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 HisGrace Schools. All Rights Reserved. Designed with <i class="fas fa-heart"
-                        style="color: var(--yellow);"></i> by WebDesign Experts</p>
+                <p>&copy; 2023 HisGrace Schools. All Rights Reserved. Powered by Paramount EduSoft</p>
             </div>
         </div>
     </footer>
@@ -2187,56 +2186,56 @@
             <div class="modal-body">
                 <div class="gallery-container">
                     <div class="gallery-item">
-                        <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0122-1024x683.jpg"
+                        <img src="{{asset('school-images/hgs1.webp')}}"
                             alt="Classroom activities">
                         <div class="gallery-overlay">
                             <h4>Classroom Learning</h4>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0131-1024x683.jpg"
+                        <img src="{{asset('school-images/hgs4.webp')}}"
                             alt="Students playing">
                         <div class="gallery-overlay">
                             <h4>Outdoor Play</h4>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0207-1024x683.jpg"
+                        <img src="{{asset('school-images/hgs4.webp')}}"
                             alt="Sports activities">
                         <div class="gallery-overlay">
                             <h4>Sports Day</h4>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0191-1024x683.jpg"
+                        <img src="{{asset('school-images/hgs3.webp')}}"
                             alt="Science experiments">
                         <div class="gallery-overlay">
                             <h4>Science Experiments</h4>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0172-1024x683.jpg"
+                        <img src="{{asset('school-images/hgs2.webp')}}"
                             alt="Art activities">
                         <div class="gallery-overlay">
                             <h4>Art Class</h4>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0163-1024x683.jpg"
+                        <img src="{{asset('school-images/hgs1.webp')}}"
                             alt="Library">
                         <div class="gallery-overlay">
                             <h4>Library Time</h4>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0155-1024x683.jpg"
+                        <img src="{{asset('school-images/hgs4.webp')}}"
                             alt="School event">
                         <div class="gallery-overlay">
                             <h4>School Events</h4>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0144-1024x683.jpg"
+                        <img src="{{asset('school-images/hgs1.webp')}}"
                             alt="Graduation">
                         <div class="gallery-overlay">
                             <h4>Graduation Ceremony</h4>
@@ -3711,10 +3710,10 @@
                     title = 'Photo Gallery';
                     content = `
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                            <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0122-1024x683.jpg" alt="School" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
-                            <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0131-1024x683.jpg" alt="Students" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
-                            <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0207-1024x683.jpg" alt="Sports" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
-                            <img src="https://hisgraceschools.com.ng/wp-content/uploads/2023/09/DSC_0191-1024x683.jpg" alt="Science" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
+                            <img src="{{asset('school-images/hgs4.webp')}}" alt="School" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
+                            <img src="{{asset('school-images/hgs3.webp')}}" alt="Students" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
+                            <img src="{{asset('school-images/hgs2.webp')}}" alt="Sports" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
+                            <img src="{{asset('school-images/hgs1.webp')}}" alt="Science" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
                         </div>
                         <button class="btn" id="galleryMoreBtn">View Full Gallery</button>
                     `;
