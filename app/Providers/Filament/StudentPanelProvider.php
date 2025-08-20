@@ -28,7 +28,7 @@ class StudentPanelProvider extends PanelProvider
             ->id('student')
             ->path('student')
             ->brandName($schoolDetails['school_name'])
-            
+            ->brandLogo('/storage/' . $schoolDetails['school_logo'])
             ->login()
             ->viteTheme('resources/css/filament/student/theme.css')
             ->colors([
