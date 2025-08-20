@@ -21,6 +21,8 @@
 .fi-simple-main .fi-logo{
     color:#303030 !important;
     height:90px !important;
+    border-radius: 50%;
+    
 }
 
 .fi-simple-layout label span{
