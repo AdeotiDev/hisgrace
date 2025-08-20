@@ -1,0 +1,62 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+
+.fi-simple-layout { 
+    background: linear-gradient(90deg, #4361ee, #3f37c9);
+}
+ 
+.fi-simple-main {
+    background-color: #fff !important;
+    color: #303030 !important;
+} 
+
+.fi-simple-main .fi-btn{
+    background-color: #4044d4 !important;
+    border-radius: 20px;
+    padding:12px 40px;
+}
+
+.fi-simple-main .fi-logo{
+    color:#303030 !important;
+}
+
+.fi-simple-layout label span{
+    color:#303030 !important;
+}
+
+
+.fi-simple-main .fi-input {
+  display: block;                /* block */
+  width: 100%;                   /* w-full */
+  border: 1px solid #eeeeee;                  /* border-none */
+  font-size: 1rem;               /* text-base */
+  line-height: 1.5rem;
+  color: rgb(3, 7, 18);          /* text-gray-950 */
+  transition: all 75ms;          /* transition duration-75 */
+  background-color: transparent; /* bg-white/0 */
+   border-radius: 20px;
+    padding:12px 40px;
+}
+
+.fi-simple-main .fi-input::placeholder {
+  color: rgb(156, 163, 175);     /* placeholder:text-gray-400 */
+}
+
+.fi-simple-main .fi-input:focus {
+  outline: none;                 /* focus:ring-0 */
+}
+
+.fi-simple-main .fi-input:disabled {
+  color: rgb(107, 114, 128);     /* disabled:text-gray-500 */
+  -webkit-text-fill-color: rgb(107, 114, 128); /* Safari specific */
+}
+
+.fi-simple-main .fi-input:disabled::placeholder {
+  -webkit-text-fill-color: rgb(156, 163, 175); /* Safari specific */
+}
+
+.fi-simple-main .fi-checkbox-input{
+    border:1px solid #303030 !important;
+}
