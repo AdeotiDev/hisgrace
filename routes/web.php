@@ -17,8 +17,8 @@ use App\Http\Controllers\ResultController;
 //     dd($classes_arr);
 // });
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/home2', [HomeController::class, 'home2'])->name('home2');
+Route::get('/home_old', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'home2'])->name('home2');
 // In routes/web.php
 Route::get('/homework/{homework}/download', [HomeworkController::class, 'download'])->name('homework.download');
 
