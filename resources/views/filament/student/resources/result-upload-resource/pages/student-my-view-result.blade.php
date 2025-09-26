@@ -165,10 +165,17 @@
 
                                 @endphp
                                 <strong >Key to Grades:</strong> 
-                                @foreach ($grading_system as $grade)
+                                {{-- @foreach ($grading_system as $grade)
                                 {{ $grade['min_score'] }} - {{ $grade['max_score'] }} = {{ $grade['grade'] }} 
                                 @if (!$loop->last) || @endif
-                            @endforeach
+                            @endforeach --}}
+                            @forelse ($grading_system ?? [] as $grade)
+                                {{ $grade['min_score'] }} - {{ $grade['max_score'] }} = {{ $grade['grade'] }}
+                                @if (!$loop->last) || @endif
+                            @empty
+                                <p>No grading system defined.</p>
+                            @endforelse
+
                                 </div>
                             {{-- Remarks Table --}}
                               <table  class="w-full">
