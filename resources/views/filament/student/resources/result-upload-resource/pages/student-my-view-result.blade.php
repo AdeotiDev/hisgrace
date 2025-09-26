@@ -27,7 +27,10 @@
                 foreach ($resultUploads as $resultUpload) {
                     $subject = App\Models\Subject::find($resultUpload->subject_id);
                     $class = App\Models\SchoolClass::find($resultUpload->class_id);
-                    $cardItems = is_array($resultUpload->card_items) ? $resultUpload->card_items : json_decode($resultUpload->card_items, true);
+                    // $cardItems = is_array($resultUpload->card_items) ? $resultUpload->card_items : json_decode($resultUpload->card_items, true);
+                    $cardItems = is_array($resultUpload->card_items)
+    ? $resultUpload->card_items
+    : json_decode($resultUpload->card_items ?? '[]', true) ?? [];
 
                     if (isset($cardItems[$loggedInStudentId])) {
                         $result = $cardItems[$loggedInStudentId];

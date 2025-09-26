@@ -84,7 +84,10 @@
 
                     foreach ($classResults as $resultUpload) {
                         $subject = App\Models\Subject::find($resultUpload->subject_id);
-                        $cardItems = is_array($resultUpload->card_items) ? $resultUpload->card_items : json_decode($resultUpload->card_items, true);
+                        // $cardItems = is_array($resultUpload->card_items) ? $resultUpload->card_items : json_decode($resultUpload->card_items, true);
+                        $cardItems = is_array($resultUpload->card_items)
+    ? $resultUpload->card_items
+    : json_decode($resultUpload->card_items ?? '[]', true) ?? [];
 
                         foreach ($cardItems as $studentId => $result) {
                             $student = App\Models\User::find($studentId);
