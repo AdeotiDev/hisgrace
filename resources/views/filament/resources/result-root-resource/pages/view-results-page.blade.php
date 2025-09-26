@@ -73,13 +73,16 @@
     }
 
     // Helper function for ordinal suffix
-    function ordinal_suffix($number)
+    if(!function_exists('ordinal_suffix')){
+         function ordinal_suffix($number)
     {
         $suffixes = ['th', 'st', 'nd', 'rd'];
         $value = $number % 100;
 
         return $number . ($suffixes[($value - 20) % 10] ?? $suffixes[$value] ?? $suffixes[0]);
     }
+    }
+   
 
 
                     foreach ($classResults as $resultUpload) {
