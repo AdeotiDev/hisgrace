@@ -84,44 +84,89 @@ class ResultUpload extends Model
             ]);
 
             $rowCount = 0;
+            // while (($data = fgetcsv($handle)) !== false) {
+            //     $rowCount++;
+            //     $row = @array_combine($headers, $data);
+
+            //     if (!$row || !isset($row['Student_ID'])) {
+            //         Log::error("Row {$rowCount} is malformed", [
+            //             'result_upload_id' => $this->id,
+            //             'row_data' => $data,
+            //         ]);
+            //         continue;
+            //     }
+
+            //     $studentId = $row['Student_ID'];
+            //     unset($row['Student_ID']);
+
+            //     $totalScore = array_sum(array_map('intval', $row));
+            //     $totalScores[$studentId] = $totalScore;
+
+            //     $gradingInfo = $this->getGradeFromScore($totalScore, $gradingSystem);
+
+            //     $processedData[$studentId] = [
+            //         'scores' => $row,
+            //         'total' => $totalScore,
+            //         'grade' => $gradingInfo['grade'],
+            //         'remark' => $gradingInfo['remark'],
+            //         'average' => '',
+            //         'highest' => '',
+            //         'lowest' => '',
+            //         'position' => '',
+            //     ];
+
+            //     Log::debug("Processed student row", [
+            //         'result_upload_id' => $this->id,
+            //         'student_id' => $studentId,
+            //         'total_score' => $totalScore,
+            //         'grading' => $gradingInfo,
+            //     ]);
+            // }
+
+
             while (($data = fgetcsv($handle)) !== false) {
-                $rowCount++;
-                $row = @array_combine($headers, $data);
+    $row = @array_combine($headers, $data);
 
-                if (!$row || !isset($row['Student_ID'])) {
-                    Log::error("Row {$rowCount} is malformed", [
-                        'result_upload_id' => $this->id,
-                        'row_data' => $data,
-                    ]);
-                    continue;
-                }
+    if (!$row || !isset($row['Student_ID'])) {
+        Log::error("Malformed row in CSV", [
+            'result_upload_id' => $this->id,
+            'row_data' => $data,
+        ]);
+        continue;
+    }
 
-                $studentId = $row['Student_ID'];
-                unset($row['Student_ID']);
+    // Extract & clean Student ID
+    $studentId = $row['Student_ID'];
+    $studentId = trim(mb_convert_encoding($studentId, 'UTF-8', 'UTF-8'));
+    $studentId = preg_replace('/[^0-9]/', '', $studentId);
 
-                $totalScore = array_sum(array_map('intval', $row));
-                $totalScores[$studentId] = $totalScore;
+    if (empty($studentId)) {
+        Log::error("Invalid Student_ID after cleanup", [
+            'result_upload_id' => $this->id,
+            'original_student_id' => $row['Student_ID'],
+        ]);
+        continue;
+    }
 
-                $gradingInfo = $this->getGradeFromScore($totalScore, $gradingSystem);
+    unset($row['Student_ID']); // Remove Student_ID from score columns
 
-                $processedData[$studentId] = [
-                    'scores' => $row,
-                    'total' => $totalScore,
-                    'grade' => $gradingInfo['grade'],
-                    'remark' => $gradingInfo['remark'],
-                    'average' => '',
-                    'highest' => '',
-                    'lowest' => '',
-                    'position' => '',
-                ];
+    $totalScore = array_sum(array_map('intval', $row));
+    $totalScores[$studentId] = $totalScore;
 
-                Log::debug("Processed student row", [
-                    'result_upload_id' => $this->id,
-                    'student_id' => $studentId,
-                    'total_score' => $totalScore,
-                    'grading' => $gradingInfo,
-                ]);
-            }
+    $gradingInfo = $this->getGradeFromScore($totalScore, $gradingSystem);
+
+    $processedData[$studentId] = [
+        'scores' => $row,
+        'total' => $totalScore,
+        'grade' => $gradingInfo['grade'],
+        'remark' => $gradingInfo['remark'],
+        'average' => '',
+        'highest' => '',
+        'lowest' => '',
+        'position' => '',
+    ];
+}
+
             fclose($handle);
 
             Log::info("Finished reading CSV", [
