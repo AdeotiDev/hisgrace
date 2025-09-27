@@ -10,13 +10,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ResultUpload extends Model
 {
-    //
-
-    // public function resultRoot()
-    // {
-    //     return $this->belongsTo(ResultRoot::class);
-    // }
-    // In ResultUpload.php
     public function resultRoot()
     {
         return $this->belongsTo(ResultRoot::class, 'result_root_id');
@@ -26,7 +19,6 @@ class ResultUpload extends Model
     {
         return $this->belongsTo(SchoolClass::class, 'class_id');
     }
-
 
     protected $fillable = [
         'result_root_id',
@@ -41,142 +33,174 @@ class ResultUpload extends Model
         'file_path' => 'array'
     ];
 
-
-
     protected static function booted()
     {
         static::saved(function (ResultUpload $record) {
+            Log::info("ResultUpload saved — triggering processCsvFile()", [
+                'result_upload_id' => $record->id,
+                'file_path' => $record->file_path,
+            ]);
             $record->processCsvFile();
         });
     }
 
-
     public function processCsvFile()
     {
-        // Ensure there's a file path before processing
         if (!$this->file_path) {
+            Log::warning("No file_path found for ResultUpload ID {$this->id}");
             return;
         }
 
-        // Path to the CSV file
+        // Path to CSV
         $csvPath = Storage::disk('public')->path($this->file_path);
-        Log::info($csvPath);
+        Log::info("Processing CSV file for ResultUpload ID {$this->id}", [
+            'csv_path' => $csvPath,
+        ]);
 
-        // Retrieve the grading system based on the result_root_id
+        // Grading system
         $gradingSystem = ResultRoot::find($this->result_root_id)?->gradingSystem;
         if (!$gradingSystem) {
-            Log::error("No grading system found for result_root_id: " . $this->result_root_id);
+            Log::error("No grading system found", [
+                'result_upload_id' => $this->id,
+                'result_root_id' => $this->result_root_id,
+            ]);
             return;
         }
-
-        // Now you can directly use the grading_system property as it is already decoded
         $gradingSystem = $gradingSystem->grading_system;
+        Log::info("Loaded grading system", [
+            'result_upload_id' => $this->id,
+            'rules' => $gradingSystem,
+        ]);
 
-        // Initialize an array to hold the processed data
         $processedData = [];
-        $totalScores = []; // Array to store total scores for calculating highest, lowest, and average
+        $totalScores = [];
 
-        // Open and read the CSV file
+        // Open CSV
         if (($handle = fopen($csvPath, 'r')) !== false) {
-            // Read header row for column labels
             $headers = fgetcsv($handle);
+            Log::debug("CSV headers", [
+                'result_upload_id' => $this->id,
+                'headers' => $headers,
+            ]);
 
-            // Process each row in the CSV
+            $rowCount = 0;
             while (($data = fgetcsv($handle)) !== false) {
-                // Map the data to headers
-                $row = array_combine($headers, $data);
+                $rowCount++;
+                $row = @array_combine($headers, $data);
 
-                // Extract Student ID
+                if (!$row || !isset($row['Student_ID'])) {
+                    Log::error("Row {$rowCount} is malformed", [
+                        'result_upload_id' => $this->id,
+                        'row_data' => $data,
+                    ]);
+                    continue;
+                }
+
                 $studentId = $row['Student_ID'];
-                unset($row['Student_ID']); // Remove Student_ID from the score columns
+                unset($row['Student_ID']);
 
-                // Calculate total score
                 $totalScore = array_sum(array_map('intval', $row));
-
-                // Store total score for average, highest, and lowest calculations
                 $totalScores[$studentId] = $totalScore;
 
-                // Determine the grade and remark based on the total score
                 $gradingInfo = $this->getGradeFromScore($totalScore, $gradingSystem);
 
-                // Structure the student data with the new columns
                 $processedData[$studentId] = [
                     'scores' => $row,
                     'total' => $totalScore,
                     'grade' => $gradingInfo['grade'],
                     'remark' => $gradingInfo['remark'],
-                    'average' => '', // Placeholder for average score
-                    'highest' => '', // Placeholder for highest score
-                    'lowest' => '',  // Placeholder for lowest score
-                    'position' => '', // Placeholder for position
+                    'average' => '',
+                    'highest' => '',
+                    'lowest' => '',
+                    'position' => '',
                 ];
+
+                Log::debug("Processed student row", [
+                    'result_upload_id' => $this->id,
+                    'student_id' => $studentId,
+                    'total_score' => $totalScore,
+                    'grading' => $gradingInfo,
+                ]);
             }
             fclose($handle);
+
+            Log::info("Finished reading CSV", [
+                'result_upload_id' => $this->id,
+                'row_count' => $rowCount,
+                'student_count' => count($processedData),
+            ]);
+        } else {
+            Log::error("Could not open CSV file", [
+                'result_upload_id' => $this->id,
+                'csv_path' => $csvPath,
+            ]);
+            return;
         }
 
-        // Calculate average, highest, and lowest scores
+        // Scores summary
         $averageScore = $this->calculateAverage($totalScores);
         $highestScoreStudent = array_search(max($totalScores), $totalScores);
-        // $lowestScoreStudent = array_search(min($totalScores), $totalScores);
 
-        // Filter out zero values before finding the minimum
-        $filteredScores = array_filter($totalScores, function ($score) {
-            return $score > 0;
-        });
+        $filteredScores = array_filter($totalScores, fn($score) => $score > 0);
+        $lowestScoreStudent = $filteredScores
+            ? array_search(min($filteredScores), $totalScores)
+            : null;
 
-        $lowestScoreStudent = array_search(min($filteredScores), $totalScores); // Use filtered scores
+        Log::info("Score summary", [
+            'result_upload_id' => $this->id,
+            'average' => $averageScore,
+            'highest_student' => $highestScoreStudent,
+            'lowest_student' => $lowestScoreStudent,
+        ]);
 
-
-
-        // Sort scores in descending order for ranking
-        arsort($totalScores); // Keep keys for mapping back to students
-
-        // Assign positions
+        // Ranking
+        arsort($totalScores);
         $rank = 1;
         $previousScore = null;
         $positionMapping = [];
         foreach ($totalScores as $studentId => $score) {
             if ($score !== $previousScore) {
-                $positionMapping[$studentId] = $rank; // New rank for different score
+                $positionMapping[$studentId] = $rank;
             } else {
-                $positionMapping[$studentId] = $rank - 1; // Same rank for ties
+                $positionMapping[$studentId] = $rank - 1;
             }
             $previousScore = $score;
             $rank++;
         }
 
-        // Set the highest, lowest, and average values in the processed data
+        // Assign stats
         foreach ($processedData as $studentId => &$studentData) {
             $studentData['average'] = $averageScore;
-            $studentData['highest'] = $processedData[$highestScoreStudent]['total'];
-            $studentData['lowest'] = $processedData[$lowestScoreStudent]['total'];
-
+            $studentData['highest'] = $processedData[$highestScoreStudent]['total'] ?? null;
+            $studentData['lowest'] = $lowestScoreStudent
+                ? ($processedData[$lowestScoreStudent]['total'] ?? null)
+                : null;
             $studentData['position'] = $this->getPositionSuffix($positionMapping[$studentId]);
         }
 
-        // Save the JSON structure to card_items
-        // We will now encode it as a properly formatted JSON
+        Log::debug("Final processed data", [
+            'result_upload_id' => $this->id,
+            'processed_data' => $processedData,
+        ]);
+
+        // Save quietly
         $this->card_items = json_encode($processedData, JSON_PRETTY_PRINT);
-        $this->saveQuietly(); // Save without triggering the saved event again
+        $this->saveQuietly();
+
+        Log::info("ResultUpload processed and saved successfully", [
+            'result_upload_id' => $this->id,
+        ]);
     }
 
     public function calculateAverage($totalScores)
     {
-        // Calculate the average score
         $sum = array_sum($totalScores);
         $count = count($totalScores);
-
-        // Avoid division by zero
-        if ($count === 0) {
-            return 0;
-        }
-
-        return round($sum / $count, 2); // Round to 2 decimal places
+        return $count === 0 ? 0 : round($sum / $count, 2);
     }
 
     public function getGradeFromScore($score, $gradingSystem)
     {
-        // Loop through the grading system and find the corresponding grade and remark
         foreach ($gradingSystem as $gradeRule) {
             if ($score >= $gradeRule['min_score'] && $score <= $gradeRule['max_score']) {
                 return [
@@ -185,30 +209,17 @@ class ResultUpload extends Model
                 ];
             }
         }
-
-        // If no grade matches, return a default grade and remark
-        return [
-            'grade' => 'F',
-            'remark' => 'Failed',
-        ];
+        return ['grade' => 'F', 'remark' => 'Failed'];
     }
-
 
     public function getPositionSuffix($position)
     {
-        // Return the position with the correct ordinal suffix
         $suffix = 'th';
         if (!in_array(($position % 100), [11, 12, 13])) {
             switch ($position % 10) {
-                case 1:
-                    $suffix = 'st';
-                    break;
-                case 2:
-                    $suffix = 'nd';
-                    break;
-                case 3:
-                    $suffix = 'rd';
-                    break;
+                case 1: $suffix = 'st'; break;
+                case 2: $suffix = 'nd'; break;
+                case 3: $suffix = 'rd'; break;
             }
         }
         return $position . $suffix;
