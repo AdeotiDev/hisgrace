@@ -38,13 +38,16 @@ class ResultUploadResource extends Resource
                         Select::make('result_root_id')
                             ->label('Result Root')
                             ->required()
+                            ->searchable()
                             ->options(ResultRoot::all()->pluck('name', 'id')),
                         Select::make('class_id')
                             ->label('Class')
                             ->required()
+                            ->searchable()
                             ->options(SchoolClass::all()->pluck('name', 'id')),
                         Select::make('subject_id')
                             ->label('Subject')
+                            ->searchable()
                             ->required()
                             ->options(Subject::all()->pluck('name', 'id')),
                         Section::make('Result CSV')
