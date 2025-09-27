@@ -110,10 +110,12 @@ class ResultUploadResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('resultRoot.name')
                     ->label('Result Root')
+                    ->searchable()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('class.name')
                     ->label('Class')
+                    ->searchable()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
